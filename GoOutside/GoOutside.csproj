@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
+    <Compile Include="ISessionTimer.cs" />
     <Compile Include="Scheduling\IPeriod.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
@@ -111,7 +112,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Red.ico" />

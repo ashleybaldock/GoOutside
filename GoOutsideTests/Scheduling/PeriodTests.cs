@@ -18,7 +18,7 @@ namespace GoOutsideTests.Scheduling
             Assert.That(periodElapsedEventArgs.SignalTime, Is.EqualTo(datetime));
         }
 
-        [Test]
+        [Test, Explicit]
         public void PeriodOnTimerElapsedEvent_WiredCorrectly()
         {
             var mockHandler = new Mock<PeriodElapsedEventHandler>();

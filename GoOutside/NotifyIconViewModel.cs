@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
+using GoOutside.Events;
 
 namespace GoOutside
 {
@@ -11,6 +13,22 @@ namespace GoOutside
     /// </summary>
     public class NotifyIconViewModel
     {
+        public NotifyIconViewModel(ISessionTimer sessionTimer)
+        {
+            sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
+        }
+
+        private void OnPeriodSinceBreakElapsed(object sender, PeriodSinceBreakElapsedEventArgs args)
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
+            {
+                if (ShowWindowCommand.CanExecute(null))
+                {
+                    ShowWindowCommand.Execute(null);
+                }
+            }));
+        }
+
         /// <summary>
         /// Shows a window, if none is already open.
         /// </summary>

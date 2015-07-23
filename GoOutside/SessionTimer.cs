@@ -1,11 +1,10 @@
 using GoOutside.Events;
-using GoOutside.Properties;
 using GoOutside.Scheduling;
 using Microsoft.Win32;
 
 namespace GoOutside
 {
-    public class SessionTimer
+    public class SessionTimer : ISessionTimer
     {
         private readonly IPeriod _Period;
 

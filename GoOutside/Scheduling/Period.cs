@@ -10,6 +10,7 @@ namespace GoOutside.Scheduling
         public Period(double interval)
         {
             Interval = interval;
+            AutoReset = false;
             base.Elapsed += OnTimerElapsed;
         }
 

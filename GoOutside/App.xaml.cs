@@ -19,11 +19,15 @@ namespace GoOutside
         {
             base.OnStartup(e);
 
-            //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
-            _NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
+            var interval = Settings.Default.PeriodBetweenBreaks.TotalMilliseconds;
+            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period(2000));
 
-            var interval = Settings.Default.PeriodBetweenBreaks.Milliseconds;
-            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period(interval));
+            //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
+            _NotifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+
+            var notifyIconViewModel = new NotifyIconViewModel(_SessionTimer);
+
+            _NotifyIcon.DataContext = notifyIconViewModel;
         }
 
         protected override void OnExit(ExitEventArgs e)
