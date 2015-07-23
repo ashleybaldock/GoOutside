@@ -22,15 +22,14 @@ namespace GoOutsideTests.Scheduling
         public void PeriodOnTimerElapsedEvent_WiredCorrectly()
         {
             var mockHandler = new Mock<PeriodElapsedEventHandler>();
-            var period = new Period();
+            var period = new Period(1);
 
             period.Elapsed += mockHandler.Object;
 
-            period.Interval = 1;
             period.AutoReset = false;
             period.Start();
 
-            Thread.Sleep(2);
+            Thread.Sleep(10);
 
             mockHandler.Verify(m => m(period, It.IsAny<PeriodElapsedEventArgs>()), Times.Once());
         }

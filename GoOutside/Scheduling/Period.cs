@@ -7,8 +7,9 @@ namespace GoOutside.Scheduling
     {
         public new event PeriodElapsedEventHandler Elapsed = delegate { };
 
-        public Period()
+        public Period(double interval)
         {
+            Interval = interval;
             base.Elapsed += OnTimerElapsed;
         }
 

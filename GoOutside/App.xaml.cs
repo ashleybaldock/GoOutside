@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using GoOutside.Events;
+using GoOutside.Properties;
 using GoOutside.Scheduling;
 using Hardcodet.Wpf.TaskbarNotification;
 
@@ -21,7 +22,8 @@ namespace GoOutside
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             _NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
 
-            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period());
+            var interval = Settings.Default.PeriodBetweenBreaks.Milliseconds;
+            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period(interval));
         }
 
         protected override void OnExit(ExitEventArgs e)
