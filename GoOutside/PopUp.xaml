@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="GoOutside.PopUp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="200" Width="400">
+    <Grid x:Name="LayoutRoot" Height="Auto">
+        <Border CornerRadius="6,6,6,6" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" 
+                    Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+            <Border.Background>
+                <SolidColorBrush Color="LightSkyBlue"></SolidColorBrush>
+            </Border.Background>
+        </Border>
+        <TextBlock Margin="100,10,20,10" FontSize="24" FontWeight="Bold">Time for a break?</TextBlock>
+    </Grid>
+</UserControl>

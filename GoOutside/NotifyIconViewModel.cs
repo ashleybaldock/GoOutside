@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
 using GoOutside.Events;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace GoOutside
 {
@@ -13,8 +15,11 @@ namespace GoOutside
     /// </summary>
     public class NotifyIconViewModel
     {
-        public NotifyIconViewModel(ISessionTimer sessionTimer)
+        private readonly TaskbarIcon _NotifyIcon;
+
+        public NotifyIconViewModel(ISessionTimer sessionTimer, TaskbarIcon notifyIcon)
         {
+            _NotifyIcon = notifyIcon;
             sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
         }
 
@@ -22,11 +27,24 @@ namespace GoOutside
         {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
             {
-                if (ShowWindowCommand.CanExecute(null))
-                {
-                    ShowWindowCommand.Execute(null);
-                }
+                ShowPopUpCommand.Execute(null);
             }));
+        }
+
+        private ICommand ShowPopUpCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => true,
+                    CommandAction = () =>
+                    {
+                        var popup = new PopUp();
+                        _NotifyIcon.ShowCustomBalloon(popup, PopupAnimation.None, null);
+                    }
+                };
+            }
         }
 
         /// <summary>
@@ -41,7 +59,7 @@ namespace GoOutside
                     CanExecuteFunc = () => Application.Current.MainWindow == null,
                     CommandAction = () =>
                     {
-                        Application.Current.MainWindow = new MainWindow();
+                        //Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
                     }
                 };

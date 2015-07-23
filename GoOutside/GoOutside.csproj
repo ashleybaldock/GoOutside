@@ -60,6 +60,9 @@
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
     <Compile Include="ISessionTimer.cs" />
+    <Compile Include="PopUp.xaml.cs">
+      <DependentUpon>PopUp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scheduling\IPeriod.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
@@ -83,6 +86,10 @@
     <Page Include="NotifyIconResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
