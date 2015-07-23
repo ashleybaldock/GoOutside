@@ -17,7 +17,7 @@ namespace GoOutside
             _Period.Elapsed += OnTimerElapsed;
         }
 
-        private void OnTimerElapsed(object source, PeriodElapsedEventArgs e)
+        private void OnTimerElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
         {
             PeriodSinceBreakElapsed(this, new PeriodSinceBreakElapsedEventArgs());
         }

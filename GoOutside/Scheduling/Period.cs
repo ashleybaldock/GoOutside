@@ -3,7 +3,7 @@ using System.Timers;
 namespace GoOutside.Scheduling
 {
     [System.ComponentModel.DesignerCategory("Code")]
-    class Period : Timer, IPeriod
+    public class Period : Timer, IPeriod
     {
         public new event PeriodElapsedEventHandler Elapsed = delegate { };
 
@@ -14,7 +14,7 @@ namespace GoOutside.Scheduling
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            Elapsed(this, new PeriodElapsedEventArgs(elapsedEventArgs.SignalTime));
+            Elapsed(sender, new PeriodElapsedEventArgs(elapsedEventArgs.SignalTime));
         }
     }
 }

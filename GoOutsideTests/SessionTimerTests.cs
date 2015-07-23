@@ -1,4 +1,5 @@
-﻿using GoOutside;
+﻿using System;
+using GoOutside;
 using GoOutside.Events;
 using GoOutside.Scheduling;
 using Microsoft.Win32;
@@ -40,7 +41,7 @@ namespace GoOutsideTests
 
             // Act
             var sessionSwitchEventArgs = new SessionSwitchEventArgs(reason);
-            mockSystemEvents.Raise(m => m.SessionSwitch += null, sessionSwitchEventArgs);
+            mockSystemEvents.Raise(m => m.SessionSwitch += null, null, sessionSwitchEventArgs);
 
             // Verify
             mockScheduler.Verify(m => m.Stop(), Times.Once());
@@ -58,7 +59,7 @@ namespace GoOutsideTests
             sessionTimer.PeriodSinceBreakElapsed += mockHandler.Object;
 
             // Act
-            mockScheduler.Raise(m => m.Elapsed += null, new PeriodElapsedEventArgs());
+            mockScheduler.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
 
             // Verify
             mockHandler.Verify(m => m(sessionTimer, It.IsAny<PeriodSinceBreakElapsedEventArgs>()), Times.Once());

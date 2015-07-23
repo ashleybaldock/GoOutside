@@ -4,9 +4,7 @@ namespace GoOutside.Scheduling
 {
     public class PeriodElapsedEventArgs
     {
-        public DateTime SignalTime { get; set; }
-
-        public PeriodElapsedEventArgs() : this(DateTime.Now) {}
+        public DateTime SignalTime { get; private set; }
 
         public PeriodElapsedEventArgs(DateTime signalTime)
         {
