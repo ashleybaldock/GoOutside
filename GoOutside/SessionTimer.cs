@@ -6,20 +6,20 @@ namespace GoOutside
 {
     public class SessionTimer
     {
-        private readonly IScheduler _Scheduler;
+        private readonly IPeriod _Period;
 
         public event PeriodSinceBreakElapsedEventHandler PeriodSinceBreakElapsed = delegate { };
 
-        public SessionTimer(ISystemEvents systemEvents, IScheduler scheduler)
+        public SessionTimer(ISystemEvents systemEvents, IPeriod period)
         {
             systemEvents.SessionSwitch += OnSessionSwitch;
-            _Scheduler = scheduler;
-            _Scheduler.Alarm += OnTimerElapsed;
+            _Period = period;
+            _Period.Elapsed += OnTimerElapsed;
         }
 
-        private void OnTimerElapsed(object source, SchedulerEventArgs e)
+        private void OnTimerElapsed(object source, PeriodElapsedEventArgs e)
         {
-            PeriodSinceBreakElapsed.Invoke(this, new PeriodSinceBreakElapsedEventArgs());
+            PeriodSinceBreakElapsed(this, new PeriodSinceBreakElapsedEventArgs());
         }
 
         private void OnSessionSwitch(object sender, SessionSwitchEventArgs e)
@@ -30,13 +30,13 @@ namespace GoOutside
                 case SessionSwitchReason.SessionLogoff:
                     // End session
 
-                    _Scheduler.Stop();
+                    _Period.Stop();
                     break;
                 case SessionSwitchReason.SessionUnlock:
                 case SessionSwitchReason.SessionLogon:
                     // Start session
 
-                    _Scheduler.Start();
+                    _Period.Start();
                     break;
             }
         }

@@ -21,7 +21,7 @@ namespace GoOutside
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             _NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
 
-            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Scheduler());
+            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period());
         }
 
         protected override void OnExit(ExitEventArgs e)

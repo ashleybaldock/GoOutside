@@ -59,11 +59,13 @@
     </ApplicationDefinition>
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
-    <Compile Include="Scheduling\IScheduler.cs" />
+    <Compile Include="Scheduling\IPeriod.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
     <Compile Include="Events\SchedulerEventArgs.cs" />
-    <Compile Include="Scheduling\Scheduler.cs" />
+    <Compile Include="Scheduling\Period.cs" />
+    <Compile Include="Scheduling\PeriodElapsedEventArgs.cs" />
+    <Compile Include="Scheduling\PeriodElapsedEventHandler.cs" />
     <Compile Include="SessionTimer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

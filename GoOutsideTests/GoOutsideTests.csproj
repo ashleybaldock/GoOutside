@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scheduling\SchedulerTests.cs" />
     <Compile Include="SessionTimerTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +66,9 @@
       <Project>{872965b2-0029-41cf-9c20-55bb1283a31e}</Project>
       <Name>GoOutside</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scheduling\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

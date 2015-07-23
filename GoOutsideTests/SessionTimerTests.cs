@@ -16,7 +16,7 @@ namespace GoOutsideTests
         {
             // Arrange
             var mockSystemEvents = new Mock<ISystemEvents>();
-            var mockScheduler = new Mock<IScheduler>();
+            var mockScheduler = new Mock<IPeriod>();
 
             var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockScheduler.Object);
 
@@ -34,7 +34,7 @@ namespace GoOutsideTests
         {
             // Arrange
             var mockSystemEvents = new Mock<ISystemEvents>();
-            var mockScheduler = new Mock<IScheduler>();
+            var mockScheduler = new Mock<IPeriod>();
 
             var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockScheduler.Object);
 
@@ -51,14 +51,14 @@ namespace GoOutsideTests
         {
             // Arrange
             var mockSystemEvents = new Mock<ISystemEvents>();
-            var mockScheduler = new Mock<IScheduler>();
+            var mockScheduler = new Mock<IPeriod>();
             var mockHandler = new Mock<PeriodSinceBreakElapsedEventHandler>();
 
             var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockScheduler.Object);
             sessionTimer.PeriodSinceBreakElapsed += mockHandler.Object;
 
             // Act
-            mockScheduler.Raise(m => m.Alarm += null, new SchedulerEventArgs());
+            mockScheduler.Raise(m => m.Elapsed += null, new PeriodElapsedEventArgs());
 
             // Verify
             mockHandler.Verify(m => m(sessionTimer, It.IsAny<PeriodSinceBreakElapsedEventArgs>()), Times.Once());
