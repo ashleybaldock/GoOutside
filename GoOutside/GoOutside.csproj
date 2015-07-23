@@ -59,6 +59,11 @@
     </ApplicationDefinition>
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
+    <Compile Include="IScheduler.cs" />
+    <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
+    <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
+    <Compile Include="Events\SchedulerEventArgs.cs" />
+    <Compile Include="Scheduler.cs" />
     <Compile Include="SessionTimer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

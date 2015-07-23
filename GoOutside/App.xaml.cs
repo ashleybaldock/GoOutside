@@ -10,24 +10,23 @@ namespace GoOutside
     /// </summary>
     public partial class App : Application
     {
-        private TaskbarIcon NotifyIcon;
+        private TaskbarIcon _NotifyIcon;
 
-        private SessionTimer SessionTimer;
+        private SessionTimer _SessionTimer;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
-            NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
+            _NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
 
-            SessionTimer = new SessionTimer(new SystemEventsWrapper());
-            SystemEvents.SessionSwitch += SessionTimer.SessionSwitchDelegate;
+            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Scheduler());
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            NotifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            _NotifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
             base.OnExit(e);
         }
     }
