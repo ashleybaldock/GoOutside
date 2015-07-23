@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using GoOutside.Events;
+using GoOutside.Scheduling;
 using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
 
 namespace GoOutside
 {

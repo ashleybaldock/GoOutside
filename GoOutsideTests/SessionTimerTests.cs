@@ -1,5 +1,6 @@
 ﻿using GoOutside;
 using GoOutside.Events;
+using GoOutside.Scheduling;
 using Microsoft.Win32;
 using Moq;
 using NUnit.Framework;

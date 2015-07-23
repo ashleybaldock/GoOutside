@@ -1,4 +1,5 @@
 using GoOutside.Events;
+using GoOutside.Scheduling;
 using Microsoft.Win32;
 
 namespace GoOutside

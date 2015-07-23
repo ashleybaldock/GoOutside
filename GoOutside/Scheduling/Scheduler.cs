@@ -1,9 +1,9 @@
 using System;
 using GoOutside.Events;
 
-namespace GoOutside
+namespace GoOutside.Scheduling
 {
-    class Scheduler : IScheduler
+    public class Scheduler : IScheduler
     {
         public event EventHandler<SchedulerEventArgs> Alarm;
         public void Start()

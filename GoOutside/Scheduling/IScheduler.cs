@@ -1,7 +1,7 @@
 using System;
 using GoOutside.Events;
 
-namespace GoOutside
+namespace GoOutside.Scheduling
 {
     public interface IScheduler
     {
