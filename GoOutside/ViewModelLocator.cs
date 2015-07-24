@@ -1,7 +1,5 @@
-using System.Diagnostics;
 using Autofac;
 using GoOutside.Events;
-using GoOutside.Properties;
 using GoOutside.Scheduling;
 using GoOutside.ViewModels;
 

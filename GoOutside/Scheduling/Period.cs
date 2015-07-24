@@ -1,8 +1,9 @@
+using System.ComponentModel;
 using System.Timers;
 
 namespace GoOutside.Scheduling
 {
-    [System.ComponentModel.DesignerCategory(@"Code")]
+    [DesignerCategory(@"Code")]
     public class Period : Timer, IPeriod
     {
         public new event PeriodElapsedEventHandler Elapsed = delegate { };

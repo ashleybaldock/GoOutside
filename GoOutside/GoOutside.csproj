@@ -76,7 +76,9 @@
     <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
     <Compile Include="Events\SchedulerEventArgs.cs" />
-    <Compile Include="Scheduling\Period.cs" />
+    <Compile Include="Scheduling\Period.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Scheduling\PeriodElapsedEventArgs.cs" />
     <Compile Include="Scheduling\PeriodElapsedEventHandler.cs" />
     <Compile Include="SessionTimer.cs" />
@@ -130,6 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\sky.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sky.info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
