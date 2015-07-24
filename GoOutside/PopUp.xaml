@@ -14,8 +14,10 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         Top="{Binding Top}"
+        Left="{Binding Left}"
         Topmost="True"
-        Height="200" Width="500">
+        Height="{Binding Height}"
+        Width="{Binding Width}">
     <Window.Visibility>
         <Binding Path="Visible" Converter="{StaticResource BooleanToVisibilityConverter}" Mode="TwoWay"/>
     </Window.Visibility>

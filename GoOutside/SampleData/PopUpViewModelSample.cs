@@ -7,12 +7,14 @@ namespace GoOutside.SampleData
     {
         public bool Visible { get; set; }
 
-        public double Top { get; set; }
+        public double Top { get { return 0; } }
+        public double Left { get { return 0; } }
+        public double Height { get { return 200; } }
+        public double Width { get { return 500; } }
 
         public PopUpViewModelSample()
         {
             Visible = true;
-            Top = 200;
         }
 
         public ICommand DelayCommand { get { return null; } }
