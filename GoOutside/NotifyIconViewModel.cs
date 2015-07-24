@@ -13,7 +13,7 @@ namespace GoOutside
         public NotifyIconViewModel(ISessionTimer sessionTimer, IPopupDisplayer popupDisplayer)
         {
             _PopupDisplayer = popupDisplayer;
-            sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
+//            sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
         }
 
         private void OnPeriodSinceBreakElapsed(object sender, PeriodSinceBreakElapsedEventArgs args)

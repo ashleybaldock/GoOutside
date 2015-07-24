@@ -9,15 +9,16 @@ namespace GoOutside
     public partial class App : Application
     {
         private TaskbarIcon _NotifyIcon;
+        private PopUp _PopUp;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
-            _NotifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+            _NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
 
-
+            _PopUp = (PopUp) FindResource("PopUp");
         }
 
         protected override void OnExit(ExitEventArgs e)

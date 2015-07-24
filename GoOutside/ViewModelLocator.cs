@@ -17,10 +17,11 @@ namespace GoOutside
             containerBuilder.RegisterInstance(period).As<IPeriod>();
 
             containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
-            containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>();
+            containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();
             containerBuilder.RegisterType<PopupDisplayer>().As<IPopupDisplayer>();
 
             containerBuilder.RegisterType<NotifyIconViewModel>();
+            containerBuilder.RegisterType<PopUpViewModel>();
 
             _Container = containerBuilder.Build();
         }
@@ -28,6 +29,11 @@ namespace GoOutside
         public NotifyIconViewModel NotifyIconViewModel
         {
             get { return _Container.Resolve<NotifyIconViewModel>(); }
+        }
+
+        public PopUpViewModel PopUpViewModel
+        {
+            get { return _Container.Resolve<PopUpViewModel>(); }
         }
     }
 }
