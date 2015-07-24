@@ -5,10 +5,11 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using GoOutside.Events;
 
-namespace GoOutside
+namespace GoOutside.ViewModels
 {
-    public class PopUpViewModel : INotifyPropertyChanged
+    public class PopUpViewModel : INotifyPropertyChanged, IPopUpViewModel
     {
+        private readonly ISessionTimer _SessionTimer;
         private bool _Visible;
 
         public bool Visible
@@ -30,6 +31,7 @@ namespace GoOutside
 
         public PopUpViewModel(ISessionTimer sessionTimer)
         {
+            _SessionTimer = sessionTimer;
             Top = 400;
             Visible = false;
             sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
@@ -38,6 +40,21 @@ namespace GoOutside
         private void OnPeriodSinceBreakElapsed(object sender, PeriodSinceBreakElapsedEventArgs args)
         {
             ShowPopUpCommand.Execute(null);
+        }
+
+        public ICommand DelayCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        // TODO _SessionTimer.StartDelay();
+                        Visible = false;
+                    }
+                };
+            }
         }
 
         public ICommand ShowPopUpCommand

@@ -1,6 +1,7 @@
 using Autofac;
 using GoOutside.Events;
 using GoOutside.Scheduling;
+using GoOutside.ViewModels;
 
 namespace GoOutside
 {

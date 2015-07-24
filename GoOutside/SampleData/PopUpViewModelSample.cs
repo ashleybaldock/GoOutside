@@ -1,6 +1,9 @@
-﻿namespace GoOutside.SampleData
+﻿using System.Windows.Input;
+using GoOutside.ViewModels;
+
+namespace GoOutside.SampleData
 {
-    class PopUpViewModelSample
+    class PopUpViewModelSample : IPopUpViewModel
     {
         public bool Visible { get; set; }
 
@@ -11,5 +14,9 @@
             Visible = true;
             Top = 200;
         }
+
+        public ICommand DelayCommand { get { return null; } }
+        public ICommand ShowPopUpCommand { get { return null; } }
+        public ICommand HidePopUpCommand { get { return null; } }
     }
 }
