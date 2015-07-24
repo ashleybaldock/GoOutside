@@ -20,7 +20,7 @@ namespace GoOutside
             containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();
 
             containerBuilder.RegisterType<NotifyIconViewModel>();
-            containerBuilder.RegisterType<PopUpViewModel>();
+            containerBuilder.RegisterType<PopUpViewModel>().SingleInstance();
 
             _Container = containerBuilder.Build();
         }

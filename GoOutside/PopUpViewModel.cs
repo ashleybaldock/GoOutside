@@ -9,9 +9,24 @@ namespace GoOutside
 {
     public class PopUpViewModel : INotifyPropertyChanged
     {
-        public bool Visible { get; set; }
+        private bool _Visible;
+
+        public bool Visible
+        {
+            get { return _Visible; }
+            set
+            {
+                _Visible = value;
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
+                {
+                    NotifyPropertyChanged("Visible");
+                }));
+            }
+        }
 
         public double Top { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public PopUpViewModel(ISessionTimer sessionTimer)
         {
@@ -22,10 +37,7 @@ namespace GoOutside
 
         private void OnPeriodSinceBreakElapsed(object sender, PeriodSinceBreakElapsedEventArgs args)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
-            {
-                ShowPopUpCommand.Execute(null);
-            }));
+            ShowPopUpCommand.Execute(null);
         }
 
         public ICommand ShowPopUpCommand
@@ -35,11 +47,7 @@ namespace GoOutside
                 return new DelegateCommand
                 {
                     CanExecuteFunc = () => !Visible,
-                    CommandAction = () =>
-                    {
-                        Visible = true;
-                        NotifyPropertyChanged("Visible");
-                    }
+                    CommandAction = () => Visible = true
                 };
             }
         }
@@ -51,11 +59,7 @@ namespace GoOutside
                 return new DelegateCommand
                 {
                     CanExecuteFunc = () => Visible,
-                    CommandAction = () =>
-                    {
-                        Visible = false;
-                        NotifyPropertyChanged("Visible");
-                    }
+                    CommandAction = () => Visible = false
                 };
             }
         }
@@ -67,7 +71,5 @@ namespace GoOutside
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
