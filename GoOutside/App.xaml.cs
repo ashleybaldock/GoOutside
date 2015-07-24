@@ -16,9 +16,9 @@ namespace GoOutside
             base.OnStartup(e);
 
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
-            _NotifyIcon = (TaskbarIcon) FindResource("NotifyIcon");
+            _PopUp = (PopUp)FindResource("PopUp");
 
-            _PopUp = (PopUp) FindResource("PopUp");
+            _NotifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using GoOutside.Annotations;
 using GoOutside.Events;
 
 namespace GoOutside
@@ -13,17 +11,20 @@ namespace GoOutside
     {
         public bool Visible { get; set; }
 
+        public double Top { get; set; }
+
         public PopUpViewModel(ISessionTimer sessionTimer)
         {
-            Visible = true;
+            Top = 400;
+            Visible = false;
             sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
         }
 
         private void OnPeriodSinceBreakElapsed(object sender, PeriodSinceBreakElapsedEventArgs args)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
             {
-                HidePopUpCommand.Execute(null);
+                ShowPopUpCommand.Execute(null);
             }));
         }
 
@@ -37,7 +38,7 @@ namespace GoOutside
                     CommandAction = () =>
                     {
                         Visible = true;
-                        NotifyPropertyChanged("Visibility");
+                        NotifyPropertyChanged("Visible");
                     }
                 };
             }
@@ -53,16 +54,10 @@ namespace GoOutside
                     CommandAction = () =>
                     {
                         Visible = false;
-                        NotifyPropertyChanged("Visibility");
+                        NotifyPropertyChanged("Visible");
                     }
                 };
             }
-        }
-
-        public double Top
-        {
-            get { return 400; }
-            set { }
         }
 
         private void NotifyPropertyChanged(string info)

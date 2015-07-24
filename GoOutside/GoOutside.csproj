@@ -64,12 +64,10 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
-    <Compile Include="IPopupDisplayer.cs" />
     <Compile Include="ISessionTimer.cs" />
     <Compile Include="PopUp.xaml.cs">
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PopupDisplayer.cs" />
     <Compile Include="PopUpViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Scheduling\IPeriod.cs" />
@@ -93,10 +91,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <DesignData Include="SampleData\PopUpSampleData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </DesignData>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NotifyIconViewModel.cs" />

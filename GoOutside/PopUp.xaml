@@ -10,10 +10,13 @@
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="NoResize"
-        Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+        ShowInTaskbar="False"
         Top="{Binding Top}"
         Topmost="True"
         Height="200" Width="500">
+    <Window.Visibility>
+        <Binding Path="Visible" Converter="{StaticResource BooleanToVisibilityConverter}" Mode="TwoWay"/>
+    </Window.Visibility>
     <Grid x:Name="LayoutRoot" Height="Auto">
         <Border CornerRadius="6,6,6,6" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" 
                     Height="Auto" VerticalAlignment="Stretch" Width="Auto">

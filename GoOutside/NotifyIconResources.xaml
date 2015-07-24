@@ -12,9 +12,9 @@
     
     <local:PopUp x:Key="PopUp"></local:PopUp>
 
-    <ContextMenu x:Shared="false" x:Key="SysTrayMenu" d:DataContext="{d:DesignData NotifyIconViewModel}">
-        <MenuItem Header="Show PopUp" Command="{Binding ShowPopUpCommand}" />
-        <MenuItem Header="Hide PopUp" Command="{Binding HidePopUpCommand}" />
+    <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
+        <MenuItem Header="Show PopUp" Command="{Binding ElementName=PopUp, Path=DataContext.HidePopUpCommand, Mode=OneWayToSource}" />
+        <MenuItem Header="Hide PopUp" Command="{Binding ElementName=PopUp, Path=DataContext.HidePopUpCommand, Mode=OneWayToSource}" />
         <Separator />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>
@@ -22,7 +22,6 @@
     <tb:TaskbarIcon x:Shared="True"  x:Key="NotifyIcon"
                     IconSource="/Red.ico"
                     ToolTipText="Double-click for window, right-click for menu"
-                    DoubleClickCommand="{Binding ShowPopUpCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}"
                     DataContext="{Binding Path=NotifyIconViewModel, Source={StaticResource ViewModelLocator}}"
                     d:DataContext="{d:DesignData NotifyIconViewModel}">
