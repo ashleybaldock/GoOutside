@@ -1,6 +1,4 @@
 using Autofac;
-using GoOutside.Events;
-using GoOutside.Scheduling;
 using GoOutside.ViewModels;
 
 namespace GoOutside
@@ -11,22 +9,7 @@ namespace GoOutside
 
         public ViewModelLocator()
         {
-            var containerBuilder = new ContainerBuilder();
-
-#if DEBUG
-            var period = new Period(2000);
-#else
-            var period = new Period(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds);
-#endif
-            containerBuilder.RegisterInstance(period).As<IPeriod>();
-
-            containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
-            containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();
-
-            containerBuilder.RegisterType<NotifyIconViewModel>();
-            containerBuilder.RegisterType<PopUpViewModel>().SingleInstance();
-
-            _Container = containerBuilder.Build();
+            _Container = ContainerFactory.BuildContainer();
         }
 
         public NotifyIconViewModel NotifyIconViewModel

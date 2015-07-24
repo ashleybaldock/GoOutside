@@ -1,12 +1,10 @@
 ﻿using System.Windows;
+using GoOutside.Views;
 using Hardcodet.Wpf.TaskbarNotification;
 
 namespace GoOutside
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private TaskbarIcon _NotifyIcon;
         private PopUp _PopUp;
@@ -23,7 +21,7 @@ namespace GoOutside
 
         protected override void OnExit(ExitEventArgs e)
         {
-            _NotifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            _NotifyIcon.Dispose();
             base.OnExit(e);
         }
     }

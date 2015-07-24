@@ -1,6 +1,6 @@
 using GoOutside.Events;
 
-namespace GoOutside
+namespace GoOutside.Timers
 {
     public interface ISessionTimer
     {

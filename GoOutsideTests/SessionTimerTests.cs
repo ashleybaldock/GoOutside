@@ -2,6 +2,7 @@
 using GoOutside;
 using GoOutside.Events;
 using GoOutside.Scheduling;
+using GoOutside.Timers;
 using Microsoft.Win32;
 using Moq;
 using NUnit.Framework;

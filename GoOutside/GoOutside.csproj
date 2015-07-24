@@ -61,12 +61,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ContainerFactory.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
     <Compile Include="ViewModels\IPopUpViewModel.cs" />
-    <Compile Include="ISessionTimer.cs" />
-    <Compile Include="PopUp.xaml.cs">
+    <Compile Include="Timers\ISessionTimer.cs" />
+    <Compile Include="Views\PopUp.xaml.cs">
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PopUpViewModel.cs" />
@@ -81,7 +82,7 @@
     </Compile>
     <Compile Include="Scheduling\PeriodElapsedEventArgs.cs" />
     <Compile Include="Scheduling\PeriodElapsedEventHandler.cs" />
-    <Compile Include="SessionTimer.cs" />
+    <Compile Include="Timers\SessionTimer.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -91,7 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PopUp.xaml">
+    <Page Include="Views\PopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

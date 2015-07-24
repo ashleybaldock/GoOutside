@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using GoOutside.Events;
+using GoOutside.Timers;
 using Hardcodet.Wpf.TaskbarNotification.Interop;
 
 namespace GoOutside.ViewModels
@@ -52,7 +53,7 @@ namespace GoOutside.ViewModels
         public PopUpViewModel(ISessionTimer sessionTimer)
         {
             _SessionTimer = sessionTimer;
-            Visible = true;
+            Visible = false;
             sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
         }
 

@@ -4,13 +4,14 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:GoOutside"
+                    xmlns:views="clr-namespace:GoOutside.Views"
                     mc:Ignorable="d">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
 
     <local:ViewModelLocator x:Key="ViewModelLocator"></local:ViewModelLocator>
     
-    <local:PopUp x:Key="PopUp"></local:PopUp>
+    <views:PopUp x:Key="PopUp"></views:PopUp>
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
         <MenuItem Header="Show PopUp" DataContext="{Binding Path=PopUpViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding ShowPopUpCommand}" />
