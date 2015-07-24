@@ -8,18 +8,51 @@ using Hardcodet.Wpf.TaskbarNotification;
 
 namespace GoOutside
 {
-    /// <summary>
-    /// Provides bindable properties and commands for the NotifyIcon. In this sample, the
-    /// view model is assigned to the NotifyIcon in XAML. Alternatively, the startup routing
-    /// in App.xaml.cs could have created this view model, and assigned it to the NotifyIcon.
-    /// </summary>
+    public interface IPopupDisplayer
+    {
+        bool CanShow();
+        bool CanHide();
+        void Show();
+        void Hide();
+    }
+
+    class PopupDisplayer : IPopupDisplayer
+    {
+        public bool CanShow()
+        {
+            var notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+            return notifyIcon != null && (notifyIcon.CustomBalloon == null || !notifyIcon.CustomBalloon.IsOpen);
+        }
+
+        public bool CanHide()
+        {
+            var notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+            return notifyIcon != null && notifyIcon.CustomBalloon != null && notifyIcon.CustomBalloon.IsOpen;
+        }
+
+        public void Show()
+        {
+            var popup = new PopUp();
+            var notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+            if (notifyIcon != null)
+                notifyIcon.ShowCustomBalloon(popup, PopupAnimation.None, null);
+        }
+
+        public void Hide()
+        {
+            var notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+            if (notifyIcon != null)
+                notifyIcon.CloseBalloon();
+        }
+    }
+
     public class NotifyIconViewModel
     {
-        private readonly TaskbarIcon _NotifyIcon;
+        private readonly IPopupDisplayer _PopupDisplayer;
 
-        public NotifyIconViewModel(ISessionTimer sessionTimer, TaskbarIcon notifyIcon)
+        public NotifyIconViewModel(ISessionTimer sessionTimer, IPopupDisplayer popupDisplayer)
         {
-            _NotifyIcon = notifyIcon;
+            _PopupDisplayer = popupDisplayer;
             sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
         }
 
@@ -31,60 +64,35 @@ namespace GoOutside
             }));
         }
 
-        private ICommand ShowPopUpCommand
+        public ICommand ShowPopUpCommand
         {
             get
             {
                 return new DelegateCommand
                 {
-                    CanExecuteFunc = () => true,
+                    CanExecuteFunc = _PopupDisplayer.CanShow,
+                    CommandAction = _PopupDisplayer.Show
+                };
+            }
+        }
+
+        public ICommand HidePopUpCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = _PopupDisplayer.CanHide,
                     CommandAction = () =>
                     {
-                        var popup = new PopUp();
-                        _NotifyIcon.ShowCustomBalloon(popup, PopupAnimation.None, null);
+                        var notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+                        if (notifyIcon != null)
+                            notifyIcon.CloseBalloon();
                     }
                 };
             }
         }
 
-        /// <summary>
-        /// Shows a window, if none is already open.
-        /// </summary>
-        public ICommand ShowWindowCommand
-        {
-            get
-            {
-                return new DelegateCommand
-                {
-                    CanExecuteFunc = () => Application.Current.MainWindow == null,
-                    CommandAction = () =>
-                    {
-                        //Application.Current.MainWindow = new MainWindow();
-                        Application.Current.MainWindow.Show();
-                    }
-                };
-            }
-        }
-
-        /// <summary>
-        /// Hides the main window. This command is only enabled if a window is open.
-        /// </summary>
-        public ICommand HideWindowCommand
-        {
-            get
-            {
-                return new DelegateCommand
-                {
-                    CommandAction = () => Application.Current.MainWindow.Close(),
-                    CanExecuteFunc = () => Application.Current.MainWindow != null
-                };
-            }
-        }
-
-
-        /// <summary>
-        /// Shuts down the application.
-        /// </summary>
         public ICommand ExitApplicationCommand
         {
             get
@@ -94,10 +102,6 @@ namespace GoOutside
         }
     }
 
-
-    /// <summary>
-    /// Simplistic delegate command for the demo.
-    /// </summary>
     public class DelegateCommand : ICommand
     {
         public Action CommandAction { get; set; }

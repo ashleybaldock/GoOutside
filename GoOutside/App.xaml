@@ -4,11 +4,6 @@
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
 
-        <!--
-            Note that this application does not have a StartupUri declared, so no Window is automatically loaded.
-            Also, the ShutdownMode was set to explicit, so we have to close the application programmatically
-        -->
-
         <!-- merge NotifyIcon and related stuff into the application -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

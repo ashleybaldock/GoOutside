@@ -1,7 +1,4 @@
 ﻿using System.Windows;
-using GoOutside.Events;
-using GoOutside.Properties;
-using GoOutside.Scheduling;
 using Hardcodet.Wpf.TaskbarNotification;
 
 namespace GoOutside
@@ -13,21 +10,19 @@ namespace GoOutside
     {
         private TaskbarIcon _NotifyIcon;
 
-        private SessionTimer _SessionTimer;
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            var interval = Settings.Default.PeriodBetweenBreaks.TotalMilliseconds;
-            _SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period(2000));
+            //var interval = Settings.Default.PeriodBetweenBreaks.TotalMilliseconds;
+            //_SessionTimer = new SessionTimer(new SystemEventsWrapper(), new Period(2000));
 
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             _NotifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
 
-            var notifyIconViewModel = new NotifyIconViewModel(_SessionTimer, _NotifyIcon);
+            //var notifyIconViewModel = new NotifyIconViewModel(_SessionTimer);
 
-            _NotifyIcon.DataContext = notifyIconViewModel;
+            //_NotifyIcon.DataContext = notifyIconViewModel;
         }
 
         protected override void OnExit(ExitEventArgs e)
