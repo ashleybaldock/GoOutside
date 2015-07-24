@@ -61,12 +61,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
+    <Compile Include="IPopupDisplayer.cs" />
     <Compile Include="ISessionTimer.cs" />
     <Compile Include="PopUp.xaml.cs">
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopupDisplayer.cs" />
     <Compile Include="Scheduling\IPeriod.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
@@ -123,7 +126,9 @@
   <ItemGroup>
     <Resource Include="Red.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\sky.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,14 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="200" Width="400">
+             Height="200" Width="500">
     <Grid x:Name="LayoutRoot" Height="Auto">
         <Border CornerRadius="6,6,6,6" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" 
                     Height="Auto" VerticalAlignment="Stretch" Width="Auto">
             <Border.Background>
-                <SolidColorBrush Color="LightSkyBlue"></SolidColorBrush>
+                <ImageBrush ImageSource="Images\sky.jpg"></ImageBrush>
             </Border.Background>
         </Border>
-        <TextBlock Margin="100,10,20,10" FontSize="24" FontWeight="Bold">Time for a break?</TextBlock>
+        <Button BorderThickness="0" Background="#99C6C8C3" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="0,0,10,10" Width="120" Height="30">
+            <TextBlock FontSize="12" FontWeight="Bold" Foreground="#EEEEEE" >
+                Give me 10 mins
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="1" Color="Black"></DropShadowEffect>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Button>
     </Grid>
 </UserControl>

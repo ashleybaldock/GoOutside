@@ -1,6 +1,5 @@
 using Autofac;
 using GoOutside.Events;
-using GoOutside.Properties;
 using GoOutside.Scheduling;
 
 namespace GoOutside
@@ -13,7 +12,8 @@ namespace GoOutside
         {
             var containerBuilder = new ContainerBuilder();
 
-            var period = new Period(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds);
+//            var period = new Period(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds);
+            var period = new Period(2000);
             containerBuilder.RegisterInstance(period).As<IPeriod>();
 
             containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
