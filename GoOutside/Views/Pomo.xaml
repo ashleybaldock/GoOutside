@@ -32,8 +32,8 @@
         </Viewbox>
         <Button BorderThickness="0" Background="#00000000"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                Margin="0,80,0,75" Width="200" Height="45"
-                Command="{Binding StopPomo}">
+                Margin="0,80,0,75" Width="120" Height="45"
+                Command="{Binding MouseClickCommand}">
             <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Black"
                            Text="{Binding TimerText}">
                 <TextBlock.Effect>
@@ -42,12 +42,10 @@
                 </TextBlock.Effect>
             </TextBlock>
         </Button>
-        <!--        <Viewbox Width="30" Height="30" Margin="80,128,80,32">-->
-        <!--            <StaticResource ResourceKey="Stop"></StaticResource>-->
-        <!--        </Viewbox>-->
     </Grid>
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand"></Setter>
             <Setter Property="Background" Value="#00000000"/>
             <Setter Property="Template">
                 <Setter.Value>

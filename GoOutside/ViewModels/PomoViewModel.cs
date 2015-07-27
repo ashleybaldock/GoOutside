@@ -26,7 +26,7 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        TimerText = "MouseOver";
+                        TimerText = "Start";
                         NotifyPropertyChanged("TimerText");
                     }
                 };
@@ -42,6 +42,21 @@ namespace GoOutside.ViewModels
                     CommandAction = () =>
                     {
                         TimerText = "25:00";
+                        NotifyPropertyChanged("TimerText");
+                    }
+                };
+            }
+        }
+
+        public ICommand MouseClickCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        TimerText = "Click";
                         NotifyPropertyChanged("TimerText");
                     }
                 };
