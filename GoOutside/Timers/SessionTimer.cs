@@ -1,3 +1,4 @@
+using System;
 using GoOutside.Events;
 using GoOutside.Scheduling;
 using Microsoft.Win32;
@@ -8,18 +9,24 @@ namespace GoOutside.Timers
     {
         private readonly IPeriod _PeriodBetweenBreaks;
 
-        public event PeriodSinceBreakElapsedEventHandler PeriodSinceBreakElapsed = delegate { };
+        private readonly IPeriod _PostponeBreakPeriod;
+
+        public event BreakNeededEventHandler BreakNeeded = delegate { };
+
+        public event BreakTakenEventHandler BreakTaken = delegate { };
 
         public SessionTimer(ISystemEvents systemEvents, IPeriodFactory periodFactory)
         {
             systemEvents.SessionSwitch += OnSessionSwitch;
             _PeriodBetweenBreaks = periodFactory.PeriodBetweenBreaks();
-            _PeriodBetweenBreaks.Elapsed += OnTimerElapsed;
+            _PeriodBetweenBreaks.Elapsed += OnPeriodBetweenBreaksElapsed;
+
+            _PostponeBreakPeriod = periodFactory.PostponeBreakPeriod();
         }
 
-        private void OnTimerElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
+        private void OnPeriodBetweenBreaksElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
         {
-            PeriodSinceBreakElapsed(this, new PeriodSinceBreakElapsedEventArgs());
+            BreakNeeded(this, new PeriodSinceBreakElapsedEventArgs());
         }
 
         private void OnSessionSwitch(object sender, SessionSwitchEventArgs e)
@@ -28,17 +35,30 @@ namespace GoOutside.Timers
             {
                 case SessionSwitchReason.SessionLock:
                 case SessionSwitchReason.SessionLogoff:
-                    // End session
-
-                    _PeriodBetweenBreaks.Stop();
+                    SessionEnd();
                     break;
                 case SessionSwitchReason.SessionUnlock:
                 case SessionSwitchReason.SessionLogon:
-                    // Start session
-
-                    _PeriodBetweenBreaks.Start();
+                    SessionStart();
                     break;
             }
+        }
+
+        public void PostponeBreak()
+        {
+            _PostponeBreakPeriod.Start();
+        }
+
+        private void SessionEnd()
+        {
+            _PeriodBetweenBreaks.Stop();
+            _PostponeBreakPeriod.Stop();
+            BreakTaken(this, new EventArgs());
+        }
+
+        private void SessionStart()
+        {
+            _PeriodBetweenBreaks.Start();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace GoOutside.Scheduling
             return new Period(_PeriodBetweenBreaks);
         }
 
-        public IPeriod PeriodAfterBreakDelay()
+        public IPeriod PostponeBreakPeriod()
         {
             return new Period(_PeriodAfterBreakDelay);
         }

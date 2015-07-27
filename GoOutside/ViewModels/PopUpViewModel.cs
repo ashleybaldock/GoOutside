@@ -54,10 +54,10 @@ namespace GoOutside.ViewModels
         {
             _SessionTimer = sessionTimer;
             Visible = false;
-            sessionTimer.PeriodSinceBreakElapsed += OnPeriodSinceBreakElapsed;
+            sessionTimer.BreakNeeded += OnBreakNeeded;
         }
 
-        private void OnPeriodSinceBreakElapsed(object sender, PeriodSinceBreakElapsedEventArgs args)
+        private void OnBreakNeeded(object sender, PeriodSinceBreakElapsedEventArgs args)
         {
             ShowPopUpCommand.Execute(null);
         }

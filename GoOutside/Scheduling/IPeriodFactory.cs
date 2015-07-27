@@ -3,6 +3,6 @@ namespace GoOutside.Scheduling
     public interface IPeriodFactory
     {
         IPeriod PeriodBetweenBreaks();
-        IPeriod PeriodAfterBreakDelay();
+        IPeriod PostponeBreakPeriod();
     }
 }

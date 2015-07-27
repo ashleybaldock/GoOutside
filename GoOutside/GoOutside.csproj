@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="ContainerFactory.cs" />
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Events\BreakTakenEventHandler.cs" />
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
     <Compile Include="Scheduling\IPeriodFactory.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="SampleData\PopUpViewModelSample.cs" />
     <Compile Include="Scheduling\IPeriod.cs" />
     <Compile Include="Events\PeriodSinceBreakElapsedEventArgs.cs" />
-    <Compile Include="Events\PeriodSinceBreakElapsedEventHandler.cs" />
+    <Compile Include="Events\BreakNeededEventHandler.cs" />
     <Compile Include="Events\SchedulerEventArgs.cs" />
     <Compile Include="Scheduling\Period.cs" />
     <Compile Include="Scheduling\PeriodElapsedEventArgs.cs" />
