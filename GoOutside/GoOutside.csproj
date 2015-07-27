@@ -76,7 +76,6 @@
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PopUpViewModel.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SampleData\PopUpViewModelSample.cs" />
     <Compile Include="Scheduling\IPeriod.cs" />
     <Compile Include="Events\BreakNeededEventArgs.cs" />
