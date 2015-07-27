@@ -57,7 +57,7 @@ namespace GoOutside.ViewModels
             sessionTimer.BreakNeeded += OnBreakNeeded;
         }
 
-        private void OnBreakNeeded(object sender, PeriodSinceBreakElapsedEventArgs args)
+        private void OnBreakNeeded(object sender, BreakNeededEventArgs args)
         {
             ShowPopUpCommand.Execute(null);
         }

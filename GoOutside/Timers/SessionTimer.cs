@@ -7,7 +7,7 @@ namespace GoOutside.Timers
 {
     public class SessionTimer : ISessionTimer
     {
-        private readonly IPeriod _PeriodBetweenBreaks;
+        private readonly IPeriod _BreakPeriod;
 
         private readonly IPeriod _PostponeBreakPeriod;
 
@@ -18,15 +18,16 @@ namespace GoOutside.Timers
         public SessionTimer(ISystemEvents systemEvents, IPeriodFactory periodFactory)
         {
             systemEvents.SessionSwitch += OnSessionSwitch;
-            _PeriodBetweenBreaks = periodFactory.PeriodBetweenBreaks();
-            _PeriodBetweenBreaks.Elapsed += OnPeriodBetweenBreaksElapsed;
+            _BreakPeriod = periodFactory.PeriodBetweenBreaks();
+            _BreakPeriod.Elapsed += OnBreakPeriodElapsed;
 
             _PostponeBreakPeriod = periodFactory.PostponeBreakPeriod();
+            _PostponeBreakPeriod.Elapsed += OnBreakPeriodElapsed;
         }
 
-        private void OnPeriodBetweenBreaksElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
+        private void OnBreakPeriodElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
         {
-            BreakNeeded(this, new PeriodSinceBreakElapsedEventArgs());
+            BreakNeeded(this, new BreakNeededEventArgs());
         }
 
         private void OnSessionSwitch(object sender, SessionSwitchEventArgs e)
@@ -51,14 +52,14 @@ namespace GoOutside.Timers
 
         private void SessionEnd()
         {
-            _PeriodBetweenBreaks.Stop();
+            _BreakPeriod.Stop();
             _PostponeBreakPeriod.Stop();
             BreakTaken(this, new EventArgs());
         }
 
         private void SessionStart()
         {
-            _PeriodBetweenBreaks.Start();
+            _BreakPeriod.Start();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace GoOutsideTests
 
         [TestCase(SessionSwitchReason.SessionUnlock)]
         [TestCase(SessionSwitchReason.SessionLogon)]
-        public void PeriodBetweenBreaksStarted_ForCorrectSystemEvents(SessionSwitchReason reason)
+        public void BreakPeriodStarted_ForCorrectSystemEvents(SessionSwitchReason reason)
         {
             // Act
             var sessionSwitchEventArgs = new SessionSwitchEventArgs(reason);
@@ -45,7 +45,7 @@ namespace GoOutsideTests
 
         [TestCase(SessionSwitchReason.SessionLock)]
         [TestCase(SessionSwitchReason.SessionLogoff)]
-        public void PeriodBetweenBreaksStopped_ForCorrectSystemEvents(SessionSwitchReason reason)
+        public void BreakPeriodStopped_ForCorrectSystemEvents(SessionSwitchReason reason)
         {
             // Act
             var sessionSwitchEventArgs = new SessionSwitchEventArgs(reason);
@@ -56,7 +56,7 @@ namespace GoOutsideTests
         }
 
         [Test]
-        public void BreakNeededEventInvoked_WhenPeriodBetweenBreaksTimesOut()
+        public void BreakNeededEventInvoked_WhenBreakPeriodTimesOut()
         {
             // Arrange
             var mockHandler = new Mock<BreakNeededEventHandler>();
@@ -66,7 +66,7 @@ namespace GoOutsideTests
             _MockPeriodBetweenBreaks.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
 
             // Verify
-            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<PeriodSinceBreakElapsedEventArgs>()), Times.Once());
+            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<BreakNeededEventArgs>()), Times.Once());
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace GoOutsideTests
 
         [TestCase(SessionSwitchReason.SessionLock)]
         [TestCase(SessionSwitchReason.SessionLogoff)]
-        public void BreakTakenEventInvoked_WhenCorrectSystemEventsOccur(SessionSwitchReason reason)
+        public void BreakTakenEventInvoked_WhenSystemEventsOccur(SessionSwitchReason reason)
         {
             // Arrange
             var mockHandler = new Mock<BreakTakenEventHandler>();
@@ -105,6 +105,20 @@ namespace GoOutsideTests
 
             // Verify
             mockHandler.Verify(m => m(_SessionTimer, It.IsAny<EventArgs>()), Times.Once());
+        }
+
+        [Test]
+        public void BreakNeededEventInvoked_WhenPostponeBreakPeriodTimesOut()
+        {
+            // Arrange
+            var mockHandler = new Mock<BreakNeededEventHandler>();
+            _SessionTimer.BreakNeeded += mockHandler.Object;
+
+            // Act
+            _MockPostponeBreakPeriod.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
+
+            // Verify
+            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<BreakNeededEventArgs>()), Times.Once());
         }
     }
 }
