@@ -28,13 +28,15 @@
                 <ImageBrush ImageSource="../Images/sky.jpg"></ImageBrush>
             </Border.Background>
         </Border>
-        <Button BorderThickness="0" Background="#99C6C8C3" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+        <Button BorderThickness="0" Background="#99C6C8C3" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Margin="0,0,10,10" Width="120" Height="30"
                 Command="{Binding DelayCommand}">
             <TextBlock FontSize="12" FontWeight="Bold" Foreground="#EEEEEE" >
                 Give me 10 mins
                 <TextBlock.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="1" Color="Black"></DropShadowEffect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" 
+                                      Opacity="1" Color="Black"></DropShadowEffect>
                 </TextBlock.Effect>
             </TextBlock>
         </Button>

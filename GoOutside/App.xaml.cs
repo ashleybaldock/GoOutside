@@ -17,6 +17,8 @@ namespace GoOutside
             _PopUp = (PopUp)FindResource("PopUp");
 
             _NotifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+
+            var pomo = (Pomo)FindResource("Pomo");
         }
 
         protected override void OnExit(ExitEventArgs e)

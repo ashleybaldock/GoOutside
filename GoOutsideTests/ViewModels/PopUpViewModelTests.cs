@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Security.Permissions;
-using GoOutside.Events;
 using GoOutside.Timers;
 using GoOutside.ViewModels;
 using Moq;

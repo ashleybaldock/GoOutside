@@ -4,10 +4,10 @@
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
 
-        <!-- merge NotifyIcon and related stuff into the application -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="NotifyIconResources.xaml" />
+                <ResourceDictionary Source="Images/tomato.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

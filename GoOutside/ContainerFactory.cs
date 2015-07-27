@@ -29,6 +29,7 @@ namespace GoOutside
 
             containerBuilder.RegisterType<NotifyIconViewModel>();
             containerBuilder.RegisterType<PopUpViewModel>().SingleInstance();
+            containerBuilder.RegisterType<PomoViewModel>().SingleInstance();
 
             return containerBuilder.Build();
         }

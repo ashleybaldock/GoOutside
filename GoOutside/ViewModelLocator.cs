@@ -21,5 +21,10 @@ namespace GoOutside
         {
             get { return _Container.Resolve<PopUpViewModel>(); }
         }
+
+        public PomoViewModel PomoViewModel
+        {
+            get { return _Container.Resolve<PomoViewModel>(); }
+        }
     }
 }

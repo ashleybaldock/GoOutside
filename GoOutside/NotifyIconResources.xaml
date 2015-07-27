@@ -10,8 +10,10 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
 
     <local:ViewModelLocator x:Key="ViewModelLocator"></local:ViewModelLocator>
-    
+
     <views:PopUp x:Key="PopUp"></views:PopUp>
+
+    <views:Pomo x:Key="Pomo"></views:Pomo>
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
         <MenuItem Header="Show PopUp" DataContext="{Binding Path=PopUpViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding ShowPopUpCommand}" />

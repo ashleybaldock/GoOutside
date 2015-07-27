@@ -70,8 +70,14 @@
     <Compile Include="Scheduling\PeriodFactory.cs" />
     <Compile Include="ViewModels\Dispatcher.cs" />
     <Compile Include="ViewModels\IDispatcher.cs" />
+    <Compile Include="ViewModels\IPomoViewModel.cs" />
     <Compile Include="ViewModels\IPopUpViewModel.cs" />
     <Compile Include="Timers\ISessionTimer.cs" />
+    <Compile Include="ViewModels\PomoViewModel.cs" />
+    <Compile Include="SampleData\PomoViewModelSample.cs" />
+    <Compile Include="Views\Pomo.xaml.cs">
+      <DependentUpon>Pomo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PopUp.xaml.cs">
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
@@ -89,9 +95,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModelLocator.cs" />
+    <Page Include="Images\tomato.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NotifyIconResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pomo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PopUp.xaml">
       <SubType>Designer</SubType>

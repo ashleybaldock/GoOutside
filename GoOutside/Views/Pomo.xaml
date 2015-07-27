@@ -1,0 +1,55 @@
+﻿<Window x:Class="GoOutside.Views.Pomo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:sampleData="clr-namespace:GoOutside.SampleData"
+        DataContext="{Binding Path=PomoViewModel, Source={StaticResource ViewModelLocator}}"
+        d:DataContext="{d:DesignInstance sampleData:PomoViewModelSample, IsDesignTimeCreatable=True}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="True"
+        Height="{Binding Height}"
+        Width="{Binding Width}">
+    <Window.Visibility>
+        <Binding Path="Visible" Converter="{StaticResource BooleanToVisibilityConverter}" Mode="TwoWay"/>
+    </Window.Visibility>
+    <Grid x:Name="LayoutRoot" Height="Auto">
+        <Viewbox Margin="0,10,0,0">
+            <StaticResource ResourceKey="TomatoImage"></StaticResource>
+        </Viewbox>
+        <TextBlock TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Black" Margin="0,81,0,0"
+                   Text="{Binding TimerText}">
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="0" 
+                                      Opacity="1" Color="White"></DropShadowEffect>
+            </TextBlock.Effect>
+        </TextBlock>
+        <Button BorderThickness="0" Background="LightGray" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="0,0,-194,141" Width="90" Height="30"
+                Command="{Binding StartPomo}">
+            <TextBlock FontSize="14" FontWeight="Bold" Foreground="Black" >
+                Start
+            </TextBlock>
+            <Button.Visibility>
+                <Binding Path="StartVisible" Converter="{StaticResource BooleanToVisibilityConverter}" Mode="TwoWay"/>
+            </Button.Visibility>
+        </Button>
+        <Button BorderThickness="0" Background="LightGray" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="0,0,-184,89" Width="90" Height="30"
+                Command="{Binding StartPomo}">
+            <TextBlock FontSize="14" FontWeight="Bold" Foreground="Black" >
+                Cancel
+            </TextBlock>
+            <Button.Visibility>
+                <Binding Path="CancelVisible" Converter="{StaticResource BooleanToVisibilityConverter}" Mode="TwoWay"/>
+            </Button.Visibility>
+        </Button>
+    </Grid>
+</Window>
