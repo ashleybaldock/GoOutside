@@ -66,7 +66,7 @@ namespace GoOutsideTests
             _MockPeriodBetweenBreaks.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
 
             // Verify
-            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<BreakNeededEventArgs>()), Times.Once());
+            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<EventArgs>()), Times.Once());
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace GoOutsideTests
             _MockPostponeBreakPeriod.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
 
             // Verify
-            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<BreakNeededEventArgs>()), Times.Once());
+            mockHandler.Verify(m => m(_SessionTimer, It.IsAny<EventArgs>()), Times.Once());
         }
     }
 }

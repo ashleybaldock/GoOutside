@@ -95,12 +95,12 @@ namespace GoOutside.ViewModels
             }
         }
 
-        private void OnBreakNeeded(object sender, BreakNeededEventArgs args)
+        private void OnBreakNeeded(object sender, EventArgs args)
         {
             ShowPopUpCommand.Execute(null);
         }
 
-        private void OnBreakTaken(object sender, EventArgs e)
+        private void OnBreakTaken(object sender, EventArgs args)
         {
             HidePopUpCommand.Execute(null);
         }

@@ -78,7 +78,6 @@
     <Compile Include="ViewModels\PopUpViewModel.cs" />
     <Compile Include="SampleData\PopUpViewModelSample.cs" />
     <Compile Include="Scheduling\IPeriod.cs" />
-    <Compile Include="Events\BreakNeededEventArgs.cs" />
     <Compile Include="Events\BreakNeededEventHandler.cs" />
     <Compile Include="Events\SchedulerEventArgs.cs" />
     <Compile Include="Scheduling\Period.cs" />

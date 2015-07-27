@@ -32,7 +32,7 @@ namespace GoOutside.Timers
 
         private void OnBreakPeriodElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
         {
-            BreakNeeded(this, new BreakNeededEventArgs());
+            BreakNeeded(this, new EventArgs());
         }
 
         private void OnSessionSwitch(object sender, SessionSwitchEventArgs e)

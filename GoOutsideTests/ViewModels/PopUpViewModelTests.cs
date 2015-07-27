@@ -55,7 +55,7 @@ namespace GoOutsideTests.ViewModels
         {
             _PopUpViewModel.Visible = false;
 
-            _MockSessionTimer.Raise(m => m.BreakNeeded += null, null, new BreakNeededEventArgs());
+            _MockSessionTimer.Raise(m => m.BreakNeeded += null, null, new EventArgs());
 
             Assert.That(_PopUpViewModel.Visible, Is.True);
         }
