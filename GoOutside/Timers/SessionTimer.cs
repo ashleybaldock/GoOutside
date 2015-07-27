@@ -25,6 +25,11 @@ namespace GoOutside.Timers
             _PostponeBreakPeriod.Elapsed += OnBreakPeriodElapsed;
         }
 
+        public void PostponeBreak()
+        {
+            _PostponeBreakPeriod.Start();
+        }
+
         private void OnBreakPeriodElapsed(object sender, PeriodElapsedEventArgs periodElapsedEventArgs)
         {
             BreakNeeded(this, new BreakNeededEventArgs());
@@ -43,11 +48,6 @@ namespace GoOutside.Timers
                     SessionStart();
                     break;
             }
-        }
-
-        public void PostponeBreak()
-        {
-            _PostponeBreakPeriod.Start();
         }
 
         private void SessionEnd()

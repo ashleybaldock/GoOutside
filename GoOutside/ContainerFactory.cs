@@ -24,6 +24,7 @@ namespace GoOutside
             containerBuilder.RegisterInstance(periodFactory).As<IPeriodFactory>();
 
             containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
+            containerBuilder.RegisterType<Dispatcher>().As<IDispatcher>();
             containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();
 
             containerBuilder.RegisterType<NotifyIconViewModel>();

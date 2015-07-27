@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using GoOutside.Events;
@@ -11,6 +10,7 @@ namespace GoOutside.ViewModels
 {
     public class PopUpViewModel : INotifyPropertyChanged, IPopUpViewModel
     {
+        private readonly IDispatcher _Dispatcher;
         private readonly ISessionTimer _SessionTimer;
         private bool _Visible;
 
@@ -20,7 +20,7 @@ namespace GoOutside.ViewModels
             set
             {
                 _Visible = value;
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
+                _Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
                 {
                     NotifyPropertyChanged("Visible");
                 }));
@@ -50,16 +50,12 @@ namespace GoOutside.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public PopUpViewModel(ISessionTimer sessionTimer)
+        public PopUpViewModel(IDispatcher dispatcher, ISessionTimer sessionTimer)
         {
+            _Dispatcher = dispatcher;
             _SessionTimer = sessionTimer;
             Visible = false;
             sessionTimer.BreakNeeded += OnBreakNeeded;
-        }
-
-        private void OnBreakNeeded(object sender, BreakNeededEventArgs args)
-        {
-            ShowPopUpCommand.Execute(null);
         }
 
         public ICommand DelayCommand
@@ -70,7 +66,7 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        // TODO _SessionTimer.StartDelay();
+                        _SessionTimer.PostponeBreak();
                         Visible = false;
                     }
                 };
@@ -99,6 +95,11 @@ namespace GoOutside.ViewModels
                     CommandAction = () => Visible = false
                 };
             }
+        }
+
+        private void OnBreakNeeded(object sender, BreakNeededEventArgs args)
+        {
+            ShowPopUpCommand.Execute(null);
         }
 
         private void NotifyPropertyChanged(string info)

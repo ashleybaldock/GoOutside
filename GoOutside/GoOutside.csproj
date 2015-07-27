@@ -68,6 +68,8 @@
     <Compile Include="Events\SystemEventsWrapper.cs" />
     <Compile Include="Scheduling\IPeriodFactory.cs" />
     <Compile Include="Scheduling\PeriodFactory.cs" />
+    <Compile Include="ViewModels\Dispatcher.cs" />
+    <Compile Include="ViewModels\IDispatcher.cs" />
     <Compile Include="ViewModels\IPopUpViewModel.cs" />
     <Compile Include="Timers\ISessionTimer.cs" />
     <Compile Include="Views\PopUp.xaml.cs">
