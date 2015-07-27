@@ -16,8 +16,8 @@
     <views:Pomo x:Key="Pomo"></views:Pomo>
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
-        <MenuItem Header="Show PopUp" DataContext="{Binding Path=PopUpViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding ShowPopUpCommand}" />
-        <MenuItem Header="Hide PopUp" DataContext="{Binding Path=PopUpViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding HidePopUpCommand}" />
+        <MenuItem Header="Show Pomodoro" DataContext="{Binding Path=PomoViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding Show}" />
+        <MenuItem Header="Hide Pomodoro" DataContext="{Binding Path=PomoViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding Hide}" />
         <Separator />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>

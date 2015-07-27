@@ -5,6 +5,9 @@ namespace GoOutside.ViewModels
 {
     public class PomoViewModel : INotifyPropertyChanged, IPomoViewModel
     {
+        private const string _Start = "Start";
+        private const string _Cancel = "Stop";
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public PomoViewModel()
@@ -18,7 +21,35 @@ namespace GoOutside.ViewModels
         public bool Visible { get; set; }
         public string TimerText { get; set; }
 
-        public ICommand MouseEnterCommand
+        public ICommand Show
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        Visible = true;
+                    }
+                };
+            }
+        }
+
+        public ICommand Hide
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        Visible = false;
+                    }
+                };
+            }
+        }
+
+        public ICommand OnMouseEnter
         {
             get
             {
@@ -33,7 +64,7 @@ namespace GoOutside.ViewModels
             }
         }
 
-        public ICommand MouseLeaveCommand
+        public ICommand OnMouseLeave
         {
             get
             {
@@ -48,7 +79,7 @@ namespace GoOutside.ViewModels
             }
         }
 
-        public ICommand MouseClickCommand
+        public ICommand OnMouseClick
         {
             get
             {
@@ -58,19 +89,6 @@ namespace GoOutside.ViewModels
                     {
                         TimerText = "Click";
                         NotifyPropertyChanged("TimerText");
-                    }
-                };
-            }
-        }
-
-        public ICommand StopPomo
-        {
-            get
-            {
-                return new DelegateCommand
-                {
-                    CommandAction = () =>
-                    {
                     }
                 };
             }

@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Threading;
-using GoOutside.Events;
 using GoOutside.Timers;
 using Hardcodet.Wpf.TaskbarNotification.Interop;
 

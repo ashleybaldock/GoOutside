@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Security.Permissions;
 using GoOutside.ViewModels;
 using NUnit.Framework;
 
@@ -37,6 +38,26 @@ namespace GoOutsideTests.ViewModels
         public void CanGetTimerText()
         {
             Assert.That(_PomoViewModel.TimerText, Is.EqualTo("25:00"));
+        }
+
+        [Test]
+        public void Show_SetsVisible()
+        {
+            _PomoViewModel.Visible = false;
+
+            _PomoViewModel.Show.Execute(null);
+
+            Assert.That(_PomoViewModel.Visible, Is.True);
+        }
+
+        [Test]
+        public void Hide_SetsVisible()
+        {
+            _PomoViewModel.Visible = true;
+
+            _PomoViewModel.Hide.Execute(null);
+
+            Assert.That(_PomoViewModel.Visible, Is.False);
         }
     }
 }
