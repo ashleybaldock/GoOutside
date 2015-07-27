@@ -5,5 +5,8 @@
     <Setting Name="PeriodBetweenBreaks" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">01:00:00</Value>
     </Setting>
+    <Setting Name="PeriodAfterBreakDelay" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:10:00</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

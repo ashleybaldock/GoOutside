@@ -1,5 +1,6 @@
 using Autofac;
 using GoOutside.Events;
+using GoOutside.Properties;
 using GoOutside.Scheduling;
 using GoOutside.Timers;
 using GoOutside.ViewModels;
@@ -13,11 +14,14 @@ namespace GoOutside
             var containerBuilder = new ContainerBuilder();
 
 #if DEBUG
+            var periodFactory = new PeriodFactory(2000, 5000);
             var period = new Period(2000);
 #else
+            var periodFactory = new PeriodFactory(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds,
+                                                  Settings.Default.PeriodAfterBreakDelay.TotalMilliseconds);
             var period = new Period(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds);
 #endif
-            containerBuilder.RegisterInstance(period).As<IPeriod>();
+            containerBuilder.RegisterInstance(periodFactory).As<IPeriodFactory>();
 
             containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
             containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();

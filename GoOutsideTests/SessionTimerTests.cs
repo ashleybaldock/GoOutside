@@ -1,5 +1,4 @@
 ﻿using System;
-using GoOutside;
 using GoOutside.Events;
 using GoOutside.Scheduling;
 using GoOutside.Timers;
@@ -18,16 +17,18 @@ namespace GoOutsideTests
         {
             // Arrange
             var mockSystemEvents = new Mock<ISystemEvents>();
-            var mockScheduler = new Mock<IPeriod>();
+            var mockPeriodBetweenBreaks = new Mock<IPeriod>();
+            var mockPeriodFactory = new Mock<IPeriodFactory>();
+            mockPeriodFactory.Setup(m => m.PeriodBetweenBreaks()).Returns(mockPeriodBetweenBreaks.Object);
 
-            var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockScheduler.Object);
+            var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockPeriodFactory.Object);
 
             // Act
             var sessionSwitchEventArgs = new SessionSwitchEventArgs(reason);
             mockSystemEvents.Raise(m => m.SessionSwitch += null, sessionSwitchEventArgs);
 
             // Verify
-            mockScheduler.Verify(m => m.Start(), Times.Once());
+            mockPeriodBetweenBreaks.Verify(m => m.Start(), Times.Once());
         }
 
         [TestCase(SessionSwitchReason.SessionLock)]
@@ -36,16 +37,18 @@ namespace GoOutsideTests
         {
             // Arrange
             var mockSystemEvents = new Mock<ISystemEvents>();
-            var mockScheduler = new Mock<IPeriod>();
+            var mockPeriodBetweenBreaks = new Mock<IPeriod>();
+            var mockPeriodFactory = new Mock<IPeriodFactory>();
+            mockPeriodFactory.Setup(m => m.PeriodBetweenBreaks()).Returns(mockPeriodBetweenBreaks.Object);
 
-            var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockScheduler.Object);
+            var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockPeriodFactory.Object);
 
             // Act
             var sessionSwitchEventArgs = new SessionSwitchEventArgs(reason);
             mockSystemEvents.Raise(m => m.SessionSwitch += null, null, sessionSwitchEventArgs);
 
             // Verify
-            mockScheduler.Verify(m => m.Stop(), Times.Once());
+            mockPeriodBetweenBreaks.Verify(m => m.Stop(), Times.Once());
         }
 
         [Test]
@@ -53,14 +56,16 @@ namespace GoOutsideTests
         {
             // Arrange
             var mockSystemEvents = new Mock<ISystemEvents>();
-            var mockScheduler = new Mock<IPeriod>();
+            var mockPeriodBetweenBreaks = new Mock<IPeriod>();
+            var mockPeriodFactory = new Mock<IPeriodFactory>();
+            mockPeriodFactory.Setup(m => m.PeriodBetweenBreaks()).Returns(mockPeriodBetweenBreaks.Object);
             var mockHandler = new Mock<PeriodSinceBreakElapsedEventHandler>();
 
-            var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockScheduler.Object);
+            var sessionTimer = new SessionTimer(mockSystemEvents.Object, mockPeriodFactory.Object);
             sessionTimer.PeriodSinceBreakElapsed += mockHandler.Object;
 
             // Act
-            mockScheduler.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
+            mockPeriodBetweenBreaks.Raise(m => m.Elapsed += null, null, new PeriodElapsedEventArgs(DateTime.Now));
 
             // Verify
             mockHandler.Verify(m => m(sessionTimer, It.IsAny<PeriodSinceBreakElapsedEventArgs>()), Times.Once());
