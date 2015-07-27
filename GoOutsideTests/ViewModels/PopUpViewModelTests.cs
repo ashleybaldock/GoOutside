@@ -1,4 +1,6 @@
-﻿using System.Security.Permissions;
+﻿using System;
+using System.Security.Permissions;
+using GoOutside.Events;
 using GoOutside.Timers;
 using GoOutside.ViewModels;
 using Moq;
@@ -23,6 +25,12 @@ namespace GoOutsideTests.ViewModels
         }
 
         [Test]
+        public void OnCreate_VisibleSetToFalse()
+        {
+            Assert.That(_PopUpViewModel.Visible, Is.False);
+        }
+
+        [Test]
         public void Height_ReturnsCorrectly()
         {
             Assert.That(_PopUpViewModel.Height, Is.EqualTo(200));
@@ -40,6 +48,26 @@ namespace GoOutsideTests.ViewModels
             _PopUpViewModel.DelayCommand.Execute(null);
 
             _MockSessionTimer.Verify(m => m.PostponeBreak(), Times.Once());
+        }
+
+        [Test]
+        public void Visible_SetToTrue_WhenBreakNeededEventFired()
+        {
+            _PopUpViewModel.Visible = false;
+
+            _MockSessionTimer.Raise(m => m.BreakNeeded += null, null, new BreakNeededEventArgs());
+
+            Assert.That(_PopUpViewModel.Visible, Is.True);
+        }
+
+        [Test]
+        public void Visible_SetToFalse_WhenBreakTakenEventFired()
+        {
+            _PopUpViewModel.Visible = true;
+
+            _MockSessionTimer.Raise(m => m.BreakTaken += null, null, new EventArgs());
+
+            Assert.That(_PopUpViewModel.Visible, Is.False);
         }
     }
 }

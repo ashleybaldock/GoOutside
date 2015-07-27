@@ -20,10 +20,7 @@ namespace GoOutside.ViewModels
             set
             {
                 _Visible = value;
-                _Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
-                {
-                    NotifyPropertyChanged("Visible");
-                }));
+                ApplicationThreadNotifyPropertyChanged("Visible");
             }
         }
 
@@ -56,6 +53,7 @@ namespace GoOutside.ViewModels
             _SessionTimer = sessionTimer;
             Visible = false;
             sessionTimer.BreakNeeded += OnBreakNeeded;
+            sessionTimer.BreakTaken += OnBreakTaken;
         }
 
         public ICommand DelayCommand
@@ -102,11 +100,24 @@ namespace GoOutside.ViewModels
             ShowPopUpCommand.Execute(null);
         }
 
-        private void NotifyPropertyChanged(string info)
+        private void OnBreakTaken(object sender, EventArgs e)
+        {
+            HidePopUpCommand.Execute(null);
+        }
+
+        private void ApplicationThreadNotifyPropertyChanged(string propertyName)
+        {
+            _Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() =>
+            {
+                NotifyPropertyChanged(propertyName);
+            }));
+        }
+
+        private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
