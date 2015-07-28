@@ -91,7 +91,7 @@ namespace GoOutsideTests.ViewModels
         [Test]
         public void IfTimerNotStarted_OnMouseClick_StartsPomoTimer()
         {
-            _MockPomoTimer.Setup(m => m.Running()).Returns(false);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(false);
 
             _PomoViewModel.OnMouseClick.Execute(null);
 
@@ -102,7 +102,7 @@ namespace GoOutsideTests.ViewModels
         [Test]
         public void IfTimerStarted_OnMouseClick_StopsPomoTimer()
         {
-            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
 
             _PomoViewModel.OnMouseClick.Execute(null);
 
@@ -114,7 +114,7 @@ namespace GoOutsideTests.ViewModels
         public void PomoTimerTick_UpdatesText()
         {
             _PomoViewModel.TimerText = "initialValue";
-            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
 
             var timeRemaining = TimeSpan.FromMinutes(10);
             var pomoTimerEventArgs = new PomoTimerEventArgs(timeRemaining);
@@ -127,7 +127,7 @@ namespace GoOutsideTests.ViewModels
         public void IfTimerStarted_OnMouseEnter_ShowsStop()
         {
             _PomoViewModel.TimerText = "initialValue";
-            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
 
             _PomoViewModel.OnMouseEnter.Execute(null);
 
@@ -138,7 +138,7 @@ namespace GoOutsideTests.ViewModels
         public void IfTimerStopped_OnMouseEnter_ShowsStart()
         {
             _PomoViewModel.TimerText = "initialValue";
-            _MockPomoTimer.Setup(m => m.Running()).Returns(false);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(false);
 
             _PomoViewModel.OnMouseEnter.Execute(null);
 
@@ -149,7 +149,7 @@ namespace GoOutsideTests.ViewModels
         public void IfMouseEntered_PomoTimerTick_DoesNotUpdateText()
         {
             _PomoViewModel.TimerText = "initialValue";
-            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
             var timeRemaining = TimeSpan.FromMinutes(10);
             var pomoTimerEventArgs = new PomoTimerEventArgs(timeRemaining);
 
@@ -163,7 +163,7 @@ namespace GoOutsideTests.ViewModels
         public void OnMouseLeave_EnablesTickUpdates()
         {
             _PomoViewModel.TimerText = "initialValue";
-            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
             var timeRemaining = TimeSpan.FromMinutes(10);
             var pomoTimerEventArgs = new PomoTimerEventArgs(timeRemaining);
             _PomoViewModel.OnMouseEnter.Execute(null);
@@ -178,7 +178,7 @@ namespace GoOutsideTests.ViewModels
         public void OnMouseLeave_IfTimerNotRunning_SetsTextToStart()
         {
             _PomoViewModel.TimerText = "initialValue";
-            _MockPomoTimer.Setup(m => m.Running()).Returns(false);
+            _MockPomoTimer.SetupGet(m => m.Running).Returns(false);
 
             _PomoViewModel.OnMouseLeave.Execute(null);
 

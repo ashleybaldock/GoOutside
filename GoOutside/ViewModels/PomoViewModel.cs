@@ -106,43 +106,6 @@ namespace GoOutside.ViewModels
             BackgroundColour = _BackgroundDisabled;
         }
 
-        private void Work()
-        {
-            LightColour = _LightWork;
-            DarkColour = _DarkWork;
-            BackgroundColour = _BackgroundWork;
-        }
-
-        private void Rest()
-        {
-            LightColour = _LightRest;
-            DarkColour = _DarkRest;
-            BackgroundColour = _BackgroundRest;
-        }
-
-        private void Disabled()
-        {
-            LightColour = _LightDisabled;
-            DarkColour = _DarkDisabled;
-            BackgroundColour = _BackgroundDisabled;
-        }
-
-        private void OnStateChanged(object sender, PomoTimerStateChangeEventArgs eventargs)
-        {
-            switch (eventargs.State)
-            {
-                case PomoTimerState.Disabled:
-                    Disabled();
-                    break;
-                case PomoTimerState.Work:
-                    Work();
-                    break;
-                case PomoTimerState.Rest:
-                    Rest();
-                    break;
-            }
-        }
-
         public ICommand Show
         {
             get
@@ -182,7 +145,7 @@ namespace GoOutside.ViewModels
                     CommandAction = () =>
                     {
                         _ShowTimer = false;
-                        TimerText = _PomoTimer.Running() ? _Cancel : _Start;
+                        TimerText = _PomoTimer.Running ? _Cancel : _Start;
                     }
                 };
             }
@@ -197,7 +160,7 @@ namespace GoOutside.ViewModels
                     CommandAction = () =>
                     {
                         _ShowTimer = true;
-                        if (!_PomoTimer.Running())
+                        if (!_PomoTimer.Running)
                         {
                             TimerText = "Start";
                         }
@@ -214,7 +177,7 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        if (_PomoTimer.Running())
+                        if (_PomoTimer.Running)
                         {
                             _PomoTimer.Stop();
                         }
@@ -230,6 +193,43 @@ namespace GoOutside.ViewModels
         private void OnTick(object sender, PomoTimerEventArgs args)
         {
             if (_ShowTimer) TimerText = args.TimeRemaining.ToString(@"mm\:ss");
+        }
+
+        private void OnStateChanged(object sender, PomoTimerStateChangeEventArgs eventargs)
+        {
+            switch (eventargs.State)
+            {
+                case PomoTimerState.Disabled:
+                    Disabled();
+                    break;
+                case PomoTimerState.Work:
+                    Work();
+                    break;
+                case PomoTimerState.Rest:
+                    Rest();
+                    break;
+            }
+        }
+
+        private void Work()
+        {
+            LightColour = _LightWork;
+            DarkColour = _DarkWork;
+            BackgroundColour = _BackgroundWork;
+        }
+
+        private void Rest()
+        {
+            LightColour = _LightRest;
+            DarkColour = _DarkRest;
+            BackgroundColour = _BackgroundRest;
+        }
+
+        private void Disabled()
+        {
+            LightColour = _LightDisabled;
+            DarkColour = _DarkDisabled;
+            BackgroundColour = _BackgroundDisabled;
         }
 
         private void OnPropertyChanged([CallerMemberName] string caller = null)

@@ -1,5 +1,4 @@
 using GoOutside.Events;
-using GoOutside.ViewModels;
 
 namespace GoOutside.Timers
 {
@@ -7,7 +6,7 @@ namespace GoOutside.Timers
     {
         void Start();
         void Stop();
-        bool Running();
+        bool Running { get; }
         event PomoTimerTickEventHandler Tick;
         event PomoTimerStateChangeEventHandler StateChanged;
     }
