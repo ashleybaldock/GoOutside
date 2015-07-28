@@ -1,13 +1,59 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace GoOutside.ViewModels
 {
     public class PomoViewModel : INotifyPropertyChanged, IPomoViewModel
     {
         private bool _Visible;
+        private string _TimerText;
         private const string _Start = "Start";
         private const string _Cancel = "Stop";
+
+        private bool _ShowTimer = true;
+
+
+        private DateTime _startTime;
+
+        private DispatcherTimer _timer;
+
+        private void SetupTimer()
+        {
+            _timer = new DispatcherTimer(DispatcherPriority.DataBind);
+            _timer.Tick += Tick;
+        }
+        private void Start()
+        {
+            _startTime = DateTime.Now;
+            _timer.Interval = TimeSpan.FromMilliseconds(250);
+            _timer.Start();
+        }
+
+        private void Stop()
+        {
+            _timer.Stop();
+        }
+
+        private void Tick(object sender, EventArgs args)
+        {
+            var remaining = _startTime + TimeSpan.FromMinutes(25) - DateTime.Now;
+
+            if (remaining <= TimeSpan.Zero)
+            {
+                _timer.Stop();
+            }
+            else
+            {
+                if (_ShowTimer)
+                {
+                    TimerText = remaining.ToString(@"mm\:ss");
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -15,6 +61,7 @@ namespace GoOutside.ViewModels
         {
             Visible = true;
             TimerText = "25:00";
+            SetupTimer();
         }
 
         public double Height { get { return 200; } }
@@ -27,11 +74,20 @@ namespace GoOutside.ViewModels
             {
                 if (_Visible == value) return;
                 _Visible = value;
-                NotifyPropertyChanged("Visible");
+                OnPropertyChanged();
             }
         }
 
-        public string TimerText { get; set; }
+        public string TimerText
+        {
+            get { return _TimerText; }
+            set
+            {
+                if (_TimerText == value) return;
+                _TimerText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand Show
         {
@@ -71,8 +127,15 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        TimerText = "Start";
-                        NotifyPropertyChanged("TimerText");
+                        if (_timer.IsEnabled)
+                        {
+                            _ShowTimer = false;
+                            TimerText = "Stop";
+                        }
+                        else
+                        {
+                            TimerText = "Start";
+                        }
                     }
                 };
             }
@@ -86,8 +149,11 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        TimerText = "25:00";
-                        NotifyPropertyChanged("TimerText");
+                        _ShowTimer = true;
+                        if (!_timer.IsEnabled)
+                        {
+                            TimerText = "Start";
+                        }
                     }
                 };
             }
@@ -101,18 +167,25 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        TimerText = "Click";
-                        NotifyPropertyChanged("TimerText");
+                        if (_timer.IsEnabled)
+                        {
+                            Stop();
+                        }
+                        else
+                        {
+                            Start();
+                        }
                     }
                 };
             }
         }
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void OnPropertyChanged([CallerMemberName] string caller = null)
         {
-            if (PropertyChanged != null)
+            var handler = PropertyChanged;
+            if (handler != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                handler(this, new PropertyChangedEventArgs(caller));
             }
         }
     }

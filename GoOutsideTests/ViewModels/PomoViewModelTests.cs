@@ -109,5 +109,33 @@ namespace GoOutsideTests.ViewModels
                 m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "Visible")),
                 Times.Never);
         }
+
+        [Test]
+        public void ChangeTimerTextProperty_SendsPropertyChangedEvent()
+        {
+            _PomoViewModel.TimerText = "startValue";
+            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
+            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
+
+            _PomoViewModel.TimerText = "newValue";
+
+            mockPropertyChangedDelegate.Verify(
+                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "TimerText")),
+                Times.Once);
+        }
+
+        [Test]
+        public void ChangeTimerTextProperty_OnlySendsPropertyChangedEvent_WhenPropertyChanges()
+        {
+            _PomoViewModel.TimerText = "sameValue";
+            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
+            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
+
+            _PomoViewModel.TimerText = "sameValue";
+
+            mockPropertyChangedDelegate.Verify(
+                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "TimerText")),
+                Times.Never);
+        }
     }
 }
