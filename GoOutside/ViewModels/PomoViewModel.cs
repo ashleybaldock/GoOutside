@@ -27,6 +27,7 @@ namespace GoOutside.ViewModels
             {
                 return new DelegateCommand
                 {
+                    CanExecuteFunc = () => !Visible,
                     CommandAction = () =>
                     {
                         Visible = true;
@@ -41,6 +42,7 @@ namespace GoOutside.ViewModels
             {
                 return new DelegateCommand
                 {
+                    CanExecuteFunc = () => Visible,
                     CommandAction = () =>
                     {
                         Visible = false;
