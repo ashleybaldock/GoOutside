@@ -5,6 +5,7 @@ namespace GoOutside.ViewModels
 {
     public class PomoViewModel : INotifyPropertyChanged, IPomoViewModel
     {
+        private bool _Visible;
         private const string _Start = "Start";
         private const string _Cancel = "Stop";
 
@@ -18,7 +19,18 @@ namespace GoOutside.ViewModels
 
         public double Height { get { return 200; } }
         public double Width { get { return 200; } }
-        public bool Visible { get; set; }
+
+        public bool Visible
+        {
+            get { return _Visible; }
+            set
+            {
+                if (_Visible == value) return;
+                _Visible = value;
+                NotifyPropertyChanged("Visible");
+            }
+        }
+
         public string TimerText { get; set; }
 
         public ICommand Show

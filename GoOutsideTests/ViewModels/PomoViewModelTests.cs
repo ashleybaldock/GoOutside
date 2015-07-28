@@ -1,6 +1,8 @@
-﻿using System.Dynamic;
+﻿using System.ComponentModel;
+using System.Dynamic;
 using System.Security.Permissions;
 using GoOutside.ViewModels;
+using Moq;
 using NUnit.Framework;
 
 namespace GoOutsideTests.ViewModels
@@ -8,7 +10,7 @@ namespace GoOutsideTests.ViewModels
     [TestFixture]
     class PomoViewModelTests
     {
-        private IPomoViewModel _PomoViewModel;
+        private PomoViewModel _PomoViewModel;
 
         [SetUp]
         public void SetUp()
@@ -80,5 +82,32 @@ namespace GoOutsideTests.ViewModels
             Assert.That(_PomoViewModel.Show.CanExecute(null), Is.EqualTo(expected));
         }
 
+        [Test]
+        public void ChangeVisibleProperty_SendsPropertyChangedEvent()
+        {
+            _PomoViewModel.Visible = true;
+            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
+            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
+
+            _PomoViewModel.Visible = false;
+
+            mockPropertyChangedDelegate.Verify(
+                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "Visible")),
+                Times.Once);
+        }
+
+        [Test]
+        public void ChangeVisibleProperty_OnlySendsPropertyChangedEvent_WhenPropertyChanges()
+        {
+            _PomoViewModel.Visible = true;
+            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
+            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
+
+            _PomoViewModel.Visible = true;
+
+            mockPropertyChangedDelegate.Verify(
+                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "Visible")),
+                Times.Never);
+        }
     }
 }
