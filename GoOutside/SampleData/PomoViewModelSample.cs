@@ -18,6 +18,7 @@ namespace GoOutside.SampleData
 
         public Color LightColour { get; set; }
         public Color DarkColour { get; set; }
+        public Color BackgroundColour { get; set; }
 
         public PomoViewModelSample()
         {
@@ -25,6 +26,7 @@ namespace GoOutside.SampleData
             TimerText = "25:00";
             LightColour = Color.FromArgb(255, 212, 0, 0);
             DarkColour = Color.FromArgb(255, 128, 0, 0);
+            BackgroundColour = Color.FromArgb(255, 85, 0, 0);
         }
     }
 }

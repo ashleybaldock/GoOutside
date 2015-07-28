@@ -1,78 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Canvas x:Key="TomatoImage" Width="396" Height="400">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:sampleData="clr-namespace:GoOutside.SampleData"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <Canvas x:Key="TomatoImage"
+            d:DataContext="{d:DesignInstance sampleData:PomoViewModelSample, IsDesignTimeCreatable=True}"
+            Width="396" Height="400">
         <Canvas.RenderTransform>
             <TranslateTransform X="0" Y="0"/>
         </Canvas.RenderTransform>
         <Canvas.Resources>
             <SolidColorBrush x:Key="DarkColourBrush" Color="{Binding DarkColour}" />
-            <LinearGradientBrush x:Key="LinearGradient4402" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4389" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4249" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4186" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4155" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4050" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="{Binding DarkColour}" Offset="0"/>
-                        <GradientStop Color="#00AA0000" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4035" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                        <GradientStop Color="#00FFFFFF" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient3237" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="{Binding LightColour}" Offset="0"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.53918576"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.71091092"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.86236066"/>
-                        <GradientStop Color="{Binding DarkColour}" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
+            <SolidColorBrush x:Key="BackgroundColourBrush" Color="{Binding BackgroundColour}" />
             <BlurEffect x:Key="Filter5352" Radius="2"/>
             <BlurEffect x:Key="Filter4031" Radius="11"/>
             <BlurEffect x:Key="Filter4066" Radius="8"/>
@@ -89,93 +29,6 @@
             <BlurEffect x:Key="Filter4476" Radius="0"/>
             <BlurEffect x:Key="Filter4488" Radius="6"/>
             <BlurEffect x:Key="Filter4502" Radius="8"/>
-            <RadialGradientBrush x:Key="RadialGradient4565" MappingMode="Absolute" Center="377,120" GradientOrigin="377,120" RadiusX="108.04929" RadiusY="108.04929">
-                <RadialGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="{Binding LightColour}" Offset="0"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.53918576"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.71091092"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.86236066"/>
-                        <GradientStop Color="{Binding DarkColour}" Offset="1"/>
-                    </GradientStopCollection>
-                </RadialGradientBrush.GradientStops>
-                <RadialGradientBrush.Transform>
-                    <MatrixTransform Matrix="0.59934581 0.95664293 -1.0136242 0.63505 274.36725 -296.77221"/>
-                </RadialGradientBrush.Transform>
-            </RadialGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4567" MappingMode="Absolute" StartPoint="148,125" EndPoint="152,163">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                        <GradientStop Color="#00FFFFFF" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4569" MappingMode="Absolute" StartPoint="289,625" EndPoint="302,565">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="{Binding DarkColour}" Offset="0"/>
-                        <GradientStop Color="#00AA0000" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-                <LinearGradientBrush.Transform>
-                    <TranslateTransform X="-2.9030318" Y="2.1772739"/>
-                </LinearGradientBrush.Transform>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4663" MappingMode="Absolute" StartPoint="293,473" EndPoint="281,467">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4665" MappingMode="Absolute" StartPoint="265,480" EndPoint="255,476">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-                <LinearGradientBrush.Transform>
-                    <MatrixTransform Matrix="0.97869238 -0.07464566 0.2059119 0.72135897 -283.0922 -244.44671"/>
-                </LinearGradientBrush.Transform>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4667" MappingMode="Absolute" StartPoint="262,463" EndPoint="277,463">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-                <LinearGradientBrush.Transform>
-                    <MatrixTransform Matrix="0.97869238 -0.07464566 0.2059119 0.72135897 -86.106258 139.47759"/>
-                </LinearGradientBrush.Transform>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4669" MappingMode="Absolute" StartPoint="121,59" EndPoint="117,50">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4671" MappingMode="Absolute" StartPoint="363,480" EndPoint="351,465">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4673" MappingMode="Absolute" StartPoint="320,501" EndPoint="332,517">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
             <RadialGradientBrush x:Key="RadialGradient4805" MappingMode="Absolute" Center="377,120" GradientOrigin="377,120" RadiusX="108.04929" RadiusY="108.04929">
                 <RadialGradientBrush.GradientStops>
                     <GradientStopCollection>
@@ -277,7 +130,7 @@
                         <MatrixTransform Matrix="0.73689939 -0.25362087 0.17549853 1.0649267 154.35732 479.71428"/>
                     </Path.RenderTransform>
                 </Path>
-                <Path Name="path4149" Fill="#FF550000" StrokeThickness="3.0493443" Stroke="#FF550000" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 482.62904 161.56647 A 107.04929 99.065956 0 0 1 375.57974 260.63242 107.04929 99.065956 0 0 1 268.53045 161.56647 107.04929 99.065956 0 0 1 375.57974 62.500511 107.04929 99.065956 0 0 1 482.62904 161.56647 Z">
+                <Path Name="path4149" Fill="{StaticResource BackgroundColourBrush}" StrokeThickness="3.0493443" Stroke="{StaticResource BackgroundColourBrush}" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 482.62904 161.56647 A 107.04929 99.065956 0 0 1 375.57974 260.63242 107.04929 99.065956 0 0 1 268.53045 161.56647 107.04929 99.065956 0 0 1 375.57974 62.500511 107.04929 99.065956 0 0 1 482.62904 161.56647 Z">
                     <Path.RenderTransform>
                         <MatrixTransform Matrix="3.4859696 0 0 3.4859696 -677.33541 -294.17449"/>
                     </Path.RenderTransform>
