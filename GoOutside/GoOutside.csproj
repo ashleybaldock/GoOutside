@@ -102,10 +102,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModelLocator.cs" />
-    <Page Include="Images\control.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Images\tomato.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

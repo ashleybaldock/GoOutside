@@ -8,7 +8,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="NotifyIconResources.xaml" />
                 <ResourceDictionary Source="Images/tomato.xaml" />
-                <ResourceDictionary Source="Images/control.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
