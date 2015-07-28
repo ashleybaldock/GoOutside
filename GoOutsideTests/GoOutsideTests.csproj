@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduling\PeriodTests.cs" />
-    <Compile Include="SessionTimerTests.cs" />
+    <Compile Include="TimerTests\SessionTimerTests.cs" />
     <Compile Include="TimerTests\PomoTimerTests.cs" />
     <Compile Include="ViewModels\PomoViewModelTests.cs" />
     <Compile Include="ViewModels\PopUpViewModelTests.cs" />
