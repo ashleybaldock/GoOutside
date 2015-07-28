@@ -6,38 +6,39 @@ using System.Windows.Threading;
 
 namespace GoOutside.ViewModels
 {
-    public class PomoViewModel : INotifyPropertyChanged, IPomoViewModel
+    public class PomoTimer : IPomoTimer
     {
-        private bool _Visible;
-        private string _TimerText;
-        private const string _Start = "Start";
-        private const string _Cancel = "Stop";
+        public bool Running()
+        {
+            throw new NotImplementedException();
+        }
 
-        private bool _ShowTimer = true;
-
+        public event PomoTimerTick Tick = delegate { };
+        public event PomoTimerStateChange StateChanged = delegate { };
 
         private DateTime _startTime;
 
         private DispatcherTimer _timer;
 
-        private void SetupTimer()
+        public PomoTimer()
         {
             _timer = new DispatcherTimer(DispatcherPriority.DataBind);
-            _timer.Tick += Tick;
+            _timer.Tick += OnTick;
         }
-        private void Start()
+
+        public void Start()
         {
             _startTime = DateTime.Now;
             _timer.Interval = TimeSpan.FromMilliseconds(250);
             _timer.Start();
         }
 
-        private void Stop()
+        public void Stop()
         {
             _timer.Stop();
         }
 
-        private void Tick(object sender, EventArgs args)
+        private void OnTick(object sender, EventArgs args)
         {
             var remaining = _startTime + TimeSpan.FromMinutes(25) - DateTime.Now;
 
@@ -47,22 +48,62 @@ namespace GoOutside.ViewModels
             }
             else
             {
-                if (_ShowTimer)
-                {
-                    TimerText = remaining.ToString(@"mm\:ss");
-                }
+                Tick(this, new PomoTimerEventArgs(remaining));
             }
         }
+    }
 
+    public interface IPomoTimer
+    {
+        void Start();
+        void Stop();
+        bool Running();
+        event PomoTimerTick Tick;
+        event PomoTimerStateChange StateChanged;
+    }
+
+    public delegate void PomoTimerStateChange(object sender, PomoTimerStateArgs args);
+
+    public class PomoTimerStateArgs
+    {
+        public enum PomoTimerState
+        {
+            Work,
+            Rest,
+            Disabled
+        }
+
+        public PomoTimerState State;
+
+        public PomoTimerStateArgs(PomoTimerState state)
+        {
+            State = state;
+        }
+    }
+
+    public delegate void PomoTimerTick(object sender, PomoTimerEventArgs args);
+
+    public class PomoTimerEventArgs
+    {
+        public TimeSpan TimeRemaining;
+
+        public PomoTimerEventArgs(TimeSpan timeRemaining)
+        {
+            TimeRemaining = timeRemaining;
+        }
+    }
+
+    public class PomoViewModel : INotifyPropertyChanged, IPomoViewModel
+    {
+        private const string _Start = "Start";
+        private const string _Cancel = "Cancel";
+
+        private readonly IPomoTimer _PomoTimer;
+        private bool _Visible;
+        private string _TimerText;
+        private bool _ShowTimer = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public PomoViewModel()
-        {
-            Visible = true;
-            TimerText = "25:00";
-            SetupTimer();
-        }
 
         public double Height { get { return 200; } }
         public double Width { get { return 200; } }
@@ -87,6 +128,14 @@ namespace GoOutside.ViewModels
                 _TimerText = value;
                 OnPropertyChanged();
             }
+        }
+
+        public PomoViewModel(IPomoTimer pomoTimer)
+        {
+            _PomoTimer = pomoTimer;
+            _PomoTimer.Tick += OnTick;
+            Visible = true;
+            TimerText = "25:00";
         }
 
         public ICommand Show
@@ -127,15 +176,8 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        if (_timer.IsEnabled)
-                        {
-                            _ShowTimer = false;
-                            TimerText = "Stop";
-                        }
-                        else
-                        {
-                            TimerText = "Start";
-                        }
+                        _ShowTimer = false;
+                        TimerText = _PomoTimer.Running() ? _Cancel : _Start;
                     }
                 };
             }
@@ -150,7 +192,7 @@ namespace GoOutside.ViewModels
                     CommandAction = () =>
                     {
                         _ShowTimer = true;
-                        if (!_timer.IsEnabled)
+                        if (!_PomoTimer.Running())
                         {
                             TimerText = "Start";
                         }
@@ -167,17 +209,22 @@ namespace GoOutside.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        if (_timer.IsEnabled)
+                        if (_PomoTimer.Running())
                         {
-                            Stop();
+                            _PomoTimer.Stop();
                         }
                         else
                         {
-                            Start();
+                            _PomoTimer.Start();
                         }
                     }
                 };
             }
+        }
+
+        private void OnTick(object sender, PomoTimerEventArgs args)
+        {
+            if (_ShowTimer) TimerText = args.TimeRemaining.ToString(@"mm\:ss");
         }
 
         private void OnPropertyChanged([CallerMemberName] string caller = null)

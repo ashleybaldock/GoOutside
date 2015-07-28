@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
-using System.Dynamic;
-using System.Security.Permissions;
+﻿using System;
+using System.ComponentModel;
 using GoOutside.ViewModels;
 using Moq;
 using NUnit.Framework;
@@ -11,11 +10,13 @@ namespace GoOutsideTests.ViewModels
     class PomoViewModelTests
     {
         private PomoViewModel _PomoViewModel;
+        private Mock<IPomoTimer> _MockPomoTimer;
 
         [SetUp]
         public void SetUp()
         {
-            _PomoViewModel = new PomoViewModel();
+            _MockPomoTimer = new Mock<IPomoTimer>();
+            _PomoViewModel = new PomoViewModel(_MockPomoTimer.Object);
         }
 
         [Test]
@@ -136,6 +137,103 @@ namespace GoOutsideTests.ViewModels
             mockPropertyChangedDelegate.Verify(
                 m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "TimerText")),
                 Times.Never);
+        }
+
+        [Test]
+        public void IfTimerNotStarted_OnMouseClick_StartsPomoTimer()
+        {
+            _MockPomoTimer.Setup(m => m.Running()).Returns(false);
+
+            _PomoViewModel.OnMouseClick.Execute(null);
+
+            _MockPomoTimer.Verify(m => m.Start(), Times.Once);
+            _MockPomoTimer.Verify(m => m.Stop(), Times.Never);
+        }
+
+        [Test]
+        public void IfTimerStarted_OnMouseClick_StopsPomoTimer()
+        {
+            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+
+            _PomoViewModel.OnMouseClick.Execute(null);
+
+            _MockPomoTimer.Verify(m => m.Start(), Times.Never);
+            _MockPomoTimer.Verify(m => m.Stop(), Times.Once);
+        }
+
+        [Test]
+        public void PomoTimerTick_UpdatesText()
+        {
+            _PomoViewModel.TimerText = "initialValue";
+            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+
+            var timeRemaining = TimeSpan.FromMinutes(10);
+            var pomoTimerEventArgs = new PomoTimerEventArgs(timeRemaining);
+            _MockPomoTimer.Raise(m => m.Tick += null, null, pomoTimerEventArgs);
+
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("10:00"));
+        }
+
+        [Test]
+        public void IfTimerStarted_OnMouseEnter_ShowsStop()
+        {
+            _PomoViewModel.TimerText = "initialValue";
+            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+
+            _PomoViewModel.OnMouseEnter.Execute(null);
+
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("Cancel"));
+        }
+
+        [Test]
+        public void IfTimerStopped_OnMouseEnter_ShowsStart()
+        {
+            _PomoViewModel.TimerText = "initialValue";
+            _MockPomoTimer.Setup(m => m.Running()).Returns(false);
+
+            _PomoViewModel.OnMouseEnter.Execute(null);
+
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("Start"));
+        }
+
+        [Test]
+        public void IfMouseEntered_PomoTimerTick_DoesNotUpdateText()
+        {
+            _PomoViewModel.TimerText = "initialValue";
+            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            var timeRemaining = TimeSpan.FromMinutes(10);
+            var pomoTimerEventArgs = new PomoTimerEventArgs(timeRemaining);
+
+            _PomoViewModel.OnMouseEnter.Execute(null);
+            _MockPomoTimer.Raise(m => m.Tick += null, null, pomoTimerEventArgs);
+
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("Cancel"));
+        }
+
+        [Test]
+        public void OnMouseLeave_EnablesTickUpdates()
+        {
+            _PomoViewModel.TimerText = "initialValue";
+            _MockPomoTimer.Setup(m => m.Running()).Returns(true);
+            var timeRemaining = TimeSpan.FromMinutes(10);
+            var pomoTimerEventArgs = new PomoTimerEventArgs(timeRemaining);
+            _PomoViewModel.OnMouseEnter.Execute(null);
+
+            _PomoViewModel.OnMouseLeave.Execute(null);
+            _MockPomoTimer.Raise(m => m.Tick += null, null, pomoTimerEventArgs);
+
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("10:00"));
+        }
+
+        [Test]
+        public void OnMouseLeave_IfTimerNotRunning_SetsTextToStart()
+        {
+            _PomoViewModel.TimerText = "initialValue";
+            _MockPomoTimer.Setup(m => m.Running()).Returns(false);
+
+            _PomoViewModel.OnMouseLeave.Execute(null);
+
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("Start"));
         }
     }
 }

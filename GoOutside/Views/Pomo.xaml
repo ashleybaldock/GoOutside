@@ -35,11 +35,11 @@
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 Margin="0,80,0,75" Width="120" Height="45"
                 Command="{Binding OnMouseClick}">
-            <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Black"
-                           Text="{Binding TimerText}">
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="36"
+                       FontWeight="Bold" Foreground="Black" Text="{Binding TimerText}">
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" 
-                                              Opacity="1" Color="White"></DropShadowEffect>
+                                      Opacity="1" Color="White"></DropShadowEffect>
                 </TextBlock.Effect>
             </TextBlock>
         </Button>
