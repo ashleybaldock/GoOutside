@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using System.Windows.Media;
 using GoOutside.ViewModels;
 
 namespace GoOutside.SampleData
@@ -15,10 +16,15 @@ namespace GoOutside.SampleData
         public ICommand Show { get; private set; }
         public ICommand Hide { get; private set; }
 
+        public Color LightColour { get; set; }
+        public Color DarkColour { get; set; }
+
         public PomoViewModelSample()
         {
             Visible = true;
             TimerText = "25:00";
+            LightColour = Color.FromArgb(255, 212, 0, 0);
+            DarkColour = Color.FromArgb(255, 128, 0, 0);
         }
     }
 }

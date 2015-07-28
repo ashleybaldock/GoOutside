@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace GoOutside.ViewModels
@@ -10,7 +11,7 @@ namespace GoOutside.ViewModels
     {
         public bool Running()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public event PomoTimerTick Tick = delegate { };
@@ -108,6 +109,9 @@ namespace GoOutside.ViewModels
         public double Height { get { return 200; } }
         public double Width { get { return 200; } }
 
+        public Color LightColour { get; set; }
+        public Color DarkColour { get; set; }
+
         public bool Visible
         {
             get { return _Visible; }
@@ -136,6 +140,8 @@ namespace GoOutside.ViewModels
             _PomoTimer.Tick += OnTick;
             Visible = true;
             TimerText = "25:00";
+            LightColour = Color.FromArgb(255, 212, 0, 0);
+            DarkColour = Color.FromArgb(255, 128, 0, 0);
         }
 
         public ICommand Show

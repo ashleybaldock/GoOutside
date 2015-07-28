@@ -26,6 +26,7 @@ namespace GoOutside
             containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
             containerBuilder.RegisterType<Dispatcher>().As<IDispatcher>();
             containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();
+            containerBuilder.RegisterType<PomoTimer>().As<IPomoTimer>();
 
             containerBuilder.RegisterType<NotifyIconViewModel>();
             containerBuilder.RegisterType<PopUpViewModel>().SingleInstance();

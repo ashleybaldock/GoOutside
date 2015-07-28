@@ -5,6 +5,7 @@
             <TranslateTransform X="0" Y="0"/>
         </Canvas.RenderTransform>
         <Canvas.Resources>
+            <SolidColorBrush x:Key="DarkColourBrush" Color="{Binding DarkColour}" />
             <LinearGradientBrush x:Key="LinearGradient4402" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
                 <LinearGradientBrush.GradientStops>
                     <GradientStopCollection>
@@ -48,7 +49,7 @@
             <LinearGradientBrush x:Key="LinearGradient4050" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
                 <LinearGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="#FF800000" Offset="0"/>
+                        <GradientStop Color="{Binding DarkColour}" Offset="0"/>
                         <GradientStop Color="#00AA0000" Offset="1"/>
                     </GradientStopCollection>
                 </LinearGradientBrush.GradientStops>
@@ -64,11 +65,11 @@
             <LinearGradientBrush x:Key="LinearGradient3237" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
                 <LinearGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="#FFD40000" Offset="0"/>
-                        <GradientStop Color="#FFD40000" Offset="0.53918576"/>
-                        <GradientStop Color="#FFD40000" Offset="0.71091092"/>
-                        <GradientStop Color="#FFD40000" Offset="0.86236066"/>
-                        <GradientStop Color="#FF800000" Offset="1"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.53918576"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.71091092"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.86236066"/>
+                        <GradientStop Color="{Binding DarkColour}" Offset="1"/>
                     </GradientStopCollection>
                 </LinearGradientBrush.GradientStops>
             </LinearGradientBrush>
@@ -91,11 +92,11 @@
             <RadialGradientBrush x:Key="RadialGradient4565" MappingMode="Absolute" Center="377,120" GradientOrigin="377,120" RadiusX="108.04929" RadiusY="108.04929">
                 <RadialGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="#FFD40000" Offset="0"/>
-                        <GradientStop Color="#FFD40000" Offset="0.53918576"/>
-                        <GradientStop Color="#FFD40000" Offset="0.71091092"/>
-                        <GradientStop Color="#FFD40000" Offset="0.86236066"/>
-                        <GradientStop Color="#FF800000" Offset="1"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.53918576"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.71091092"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.86236066"/>
+                        <GradientStop Color="{Binding DarkColour}" Offset="1"/>
                     </GradientStopCollection>
                 </RadialGradientBrush.GradientStops>
                 <RadialGradientBrush.Transform>
@@ -113,7 +114,7 @@
             <LinearGradientBrush x:Key="LinearGradient4569" MappingMode="Absolute" StartPoint="289,625" EndPoint="302,565">
                 <LinearGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="#FF800000" Offset="0"/>
+                        <GradientStop Color="{Binding DarkColour}" Offset="0"/>
                         <GradientStop Color="#00AA0000" Offset="1"/>
                     </GradientStopCollection>
                 </LinearGradientBrush.GradientStops>
@@ -178,11 +179,11 @@
             <RadialGradientBrush x:Key="RadialGradient4805" MappingMode="Absolute" Center="377,120" GradientOrigin="377,120" RadiusX="108.04929" RadiusY="108.04929">
                 <RadialGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="#FFD40000" Offset="0"/>
-                        <GradientStop Color="#FFD40000" Offset="0.53918576"/>
-                        <GradientStop Color="#FFD40000" Offset="0.71091092"/>
-                        <GradientStop Color="#FFD40000" Offset="0.86236066"/>
-                        <GradientStop Color="#FF800000" Offset="1"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.53918576"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.71091092"/>
+                        <GradientStop Color="{Binding LightColour}" Offset="0.86236066"/>
+                        <GradientStop Color="{Binding DarkColour}" Offset="1"/>
                     </GradientStopCollection>
                 </RadialGradientBrush.GradientStops>
                 <RadialGradientBrush.Transform>
@@ -200,7 +201,7 @@
             <LinearGradientBrush x:Key="LinearGradient4809" MappingMode="Absolute" StartPoint="289,625" EndPoint="302,565">
                 <LinearGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="#FF800000" Offset="0"/>
+                        <GradientStop Color="{Binding DarkColour}" Offset="0"/>
                         <GradientStop Color="#00AA0000" Offset="1"/>
                     </GradientStopCollection>
                 </LinearGradientBrush.GradientStops>
@@ -315,7 +316,7 @@
                             <Canvas.RenderTransform>
                                 <MatrixTransform Matrix="3.4859696 0 0 3.4859696 -421.54621 -1604.0954"/>
                             </Canvas.RenderTransform>
-                            <Path Name="path4994" Fill="#FF800000" Effect="{StaticResource Filter4119}" Data="m 294.62528 483.155 -27.75473 0.35132 -21.43079 5.97254 -11.59388 5.97254 -8.08052 12.64788 15.45785 -10.89089 18.97181 -7.37783 23.18777 -1.75658 h 9.48581 l 8.43181 14.05286 9.83711 14.75585 11.24189 12.29588 -9.83711 -14.75585 -5.26985 -31.61969 15.10686 -1.05399 20.0258 4.56725 8.78311 5.62115 8.43182 7.37783 -7.72913 -10.5399 -8.08052 -5.26985 -25.64674 -6.67513 z"/>
+                            <Path Name="path4994" Fill="{StaticResource DarkColourBrush}" Effect="{StaticResource Filter4119}" Data="m 294.62528 483.155 -27.75473 0.35132 -21.43079 5.97254 -11.59388 5.97254 -8.08052 12.64788 15.45785 -10.89089 18.97181 -7.37783 23.18777 -1.75658 h 9.48581 l 8.43181 14.05286 9.83711 14.75585 11.24189 12.29588 -9.83711 -14.75585 -5.26985 -31.61969 15.10686 -1.05399 20.0258 4.56725 8.78311 5.62115 8.43182 7.37783 -7.72913 -10.5399 -8.08052 -5.26985 -25.64674 -6.67513 z"/>
                             <Path Name="path4117" Fill="#FF225500" Effect="{StaticResource Filter4468}" Data="m 286.89536 470.04514 -28.45772 -17.21483 -14.40386 -0.35132 -11.59389 3.51326 -2.10798 10.5399 4.21586 -9.13441 10.1889 -2.10798 17.91782 7.72912 16.51184 17.91783 -23.88976 -5.26985 -5.62115 2.10798 -21.78178 12.64787 -4.56726 9.83711 -2.10798 8.78311 7.02653 -12.64788 11.59389 -7.02653 16.86383 -6.32383 15.45785 2.10798 15.45785 5.62114 11.94488 -0.35132 11.94488 8.43182 6.67514 5.97254 5.26984 9.48581 3.16197 6.32383 -1.40528 6.32384 3.51326 -5.62114 -3.16197 -9.13441 -2.81057 -9.48581 -9.13441 -11.59388 -5.26985 -5.62115 20.7278 -7.37783 20.3768 -4.56725 11.24289 3.16197 5.62114 7.02653 v 6.32384 l 2.81057 -4.91855 -4.91855 -9.48581 -10.89089 -7.02653 -10.89089 -2.10798 -9.83711 0.70264 -10.18889 4.91855 -14.40386 0.35133 2.81057 -18.97181 3.51327 -10.8909 3.16196 -5.62114 6.67514 1.40529 -4.91855 -4.56726 -8.78312 2.45928 -4.91855 7.37782 -8.08052 16.86384 -1.40528 -7.37783 h -5.97255 l -2.81057 3.51327 z"/>
                             <Path Name="path4992" Fill="#FF668000" Effect="{StaticResource Filter4460}" Data="m 286.89536 468.04514 -28.45772 -17.21483 -14.40386 -0.35132 -11.59389 3.51326 -2.10798 10.5399 4.21586 -9.13441 10.1889 -2.10798 17.91782 7.72912 16.51184 17.91783 -23.88976 -5.26985 -5.62115 2.10798 -21.78178 12.64787 -4.56726 9.83711 -2.10798 8.78311 7.02653 -12.64788 11.59389 -7.02653 16.86383 -6.32383 15.45785 2.10798 15.45785 5.62114 11.94488 -0.35132 11.94488 8.43182 6.67514 5.97254 5.26984 9.48581 3.16197 6.32383 -1.40528 6.32384 3.51326 -5.62114 -3.16197 -9.13441 -2.81057 -9.48581 -9.13441 -11.59388 -5.26985 -5.62115 20.7278 -7.37783 20.3768 -4.56725 11.24289 3.16197 5.62114 7.02653 v 6.32384 l 2.81057 -4.91855 -4.91855 -9.48581 -10.89089 -7.02653 -10.89089 -2.10798 -9.83711 0.70264 -10.18889 4.91855 -14.40386 0.35133 2.81057 -18.97181 3.51327 -10.8909 3.16196 -5.62114 6.67514 1.40529 -4.91855 -4.56726 -8.78312 2.45928 -4.91855 7.37782 -8.08052 16.86384 -1.40528 -7.37783 h -5.97255 l -2.81057 3.51327 z">
                                 <Path.RenderTransform>
