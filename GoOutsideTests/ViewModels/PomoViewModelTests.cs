@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using GoOutside.Timers;
 using GoOutside.ViewModels;
 using Moq;
 using NUnit.Framework;

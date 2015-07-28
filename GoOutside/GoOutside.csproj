@@ -71,9 +71,15 @@
     <Compile Include="Scheduling\PeriodFactory.cs" />
     <Compile Include="ViewModels\Dispatcher.cs" />
     <Compile Include="ViewModels\IDispatcher.cs" />
+    <Compile Include="Timers\IPomoTimer.cs" />
     <Compile Include="ViewModels\IPomoViewModel.cs" />
     <Compile Include="ViewModels\IPopUpViewModel.cs" />
     <Compile Include="Timers\ISessionTimer.cs" />
+    <Compile Include="Events\PomoTimerTickEventHandler.cs" />
+    <Compile Include="Events\PomoTimerStateEventArgs.cs" />
+    <Compile Include="Events\PomoTimerStateChangeEventHandler.cs" />
+    <Compile Include="Events\PomoTimerEventArgs.cs" />
+    <Compile Include="Timers\PomoTimer.cs" />
     <Compile Include="ViewModels\PomoViewModel.cs" />
     <Compile Include="SampleData\PomoViewModelSample.cs" />
     <Compile Include="Views\Pomo.xaml.cs">

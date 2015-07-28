@@ -1,99 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
+using GoOutside.Timers;
 
 namespace GoOutside.ViewModels
 {
-    public class PomoTimer : IPomoTimer
-    {
-        public bool Running()
-        {
-            return false;
-        }
-
-        public event PomoTimerTick Tick = delegate { };
-        public event PomoTimerStateChange StateChanged = delegate { };
-
-        private DateTime _startTime;
-
-        private DispatcherTimer _timer;
-
-        public PomoTimer()
-        {
-            _timer = new DispatcherTimer(DispatcherPriority.DataBind);
-            _timer.Tick += OnTick;
-        }
-
-        public void Start()
-        {
-            _startTime = DateTime.Now;
-            _timer.Interval = TimeSpan.FromMilliseconds(250);
-            _timer.Start();
-        }
-
-        public void Stop()
-        {
-            _timer.Stop();
-        }
-
-        private void OnTick(object sender, EventArgs args)
-        {
-            var remaining = _startTime + TimeSpan.FromMinutes(25) - DateTime.Now;
-
-            if (remaining <= TimeSpan.Zero)
-            {
-                _timer.Stop();
-            }
-            else
-            {
-                Tick(this, new PomoTimerEventArgs(remaining));
-            }
-        }
-    }
-
-    public interface IPomoTimer
-    {
-        void Start();
-        void Stop();
-        bool Running();
-        event PomoTimerTick Tick;
-        event PomoTimerStateChange StateChanged;
-    }
-
-    public delegate void PomoTimerStateChange(object sender, PomoTimerStateArgs args);
-
-    public class PomoTimerStateArgs
-    {
-        public enum PomoTimerState
-        {
-            Work,
-            Rest,
-            Disabled
-        }
-
-        public PomoTimerState State;
-
-        public PomoTimerStateArgs(PomoTimerState state)
-        {
-            State = state;
-        }
-    }
-
-    public delegate void PomoTimerTick(object sender, PomoTimerEventArgs args);
-
-    public class PomoTimerEventArgs
-    {
-        public TimeSpan TimeRemaining;
-
-        public PomoTimerEventArgs(TimeSpan timeRemaining)
-        {
-            TimeRemaining = timeRemaining;
-        }
-    }
-
     public class PomoViewModel : INotifyPropertyChanged, IPomoViewModel
     {
         private const string _Start = "Start";
