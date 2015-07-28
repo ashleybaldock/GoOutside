@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoOutside.ViewModels
+namespace GoOutside.Events
 {
     public class PomoTimerEventArgs
     {

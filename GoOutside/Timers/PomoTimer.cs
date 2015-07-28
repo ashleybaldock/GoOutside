@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Threading;
+using GoOutside.Events;
 using GoOutside.ViewModels;
 
 namespace GoOutside.Timers

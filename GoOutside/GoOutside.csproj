@@ -66,6 +66,7 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Events\BreakTakenEventHandler.cs" />
     <Compile Include="Events\ISystemEvents.cs" />
+    <Compile Include="Events\PomoTimerState.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
     <Compile Include="Scheduling\IPeriodFactory.cs" />
     <Compile Include="Scheduling\PeriodFactory.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="ViewModels\IPopUpViewModel.cs" />
     <Compile Include="Timers\ISessionTimer.cs" />
     <Compile Include="Events\PomoTimerTickEventHandler.cs" />
-    <Compile Include="Events\PomoTimerStateEventArgs.cs" />
+    <Compile Include="Events\PomoTimerStateChangeEventArgs.cs" />
     <Compile Include="Events\PomoTimerStateChangeEventHandler.cs" />
     <Compile Include="Events\PomoTimerEventArgs.cs" />
     <Compile Include="Timers\PomoTimer.cs" />
@@ -157,10 +158,10 @@
     <Resource Include="Images\sky.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\sky.info.txt" />
+    <Resource Include="Images\sky.jpg.info.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\images.info.txt">
+    <Resource Include="Images\tomato.xaml.info.txt">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
   </ItemGroup>

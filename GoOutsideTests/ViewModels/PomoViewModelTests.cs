@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media;
+using GoOutside.Events;
 using GoOutside.Timers;
 using GoOutside.ViewModels;
 using Moq;
@@ -82,62 +86,6 @@ namespace GoOutsideTests.ViewModels
             _PomoViewModel.Visible = initialState;
 
             Assert.That(_PomoViewModel.Show.CanExecute(null), Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void ChangeVisibleProperty_SendsPropertyChangedEvent()
-        {
-            _PomoViewModel.Visible = true;
-            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
-            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
-
-            _PomoViewModel.Visible = false;
-
-            mockPropertyChangedDelegate.Verify(
-                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "Visible")),
-                Times.Once);
-        }
-
-        [Test]
-        public void ChangeVisibleProperty_OnlySendsPropertyChangedEvent_WhenPropertyChanges()
-        {
-            _PomoViewModel.Visible = true;
-            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
-            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
-
-            _PomoViewModel.Visible = true;
-
-            mockPropertyChangedDelegate.Verify(
-                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "Visible")),
-                Times.Never);
-        }
-
-        [Test]
-        public void ChangeTimerTextProperty_SendsPropertyChangedEvent()
-        {
-            _PomoViewModel.TimerText = "startValue";
-            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
-            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
-
-            _PomoViewModel.TimerText = "newValue";
-
-            mockPropertyChangedDelegate.Verify(
-                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "TimerText")),
-                Times.Once);
-        }
-
-        [Test]
-        public void ChangeTimerTextProperty_OnlySendsPropertyChangedEvent_WhenPropertyChanges()
-        {
-            _PomoViewModel.TimerText = "sameValue";
-            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
-            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
-
-            _PomoViewModel.TimerText = "sameValue";
-
-            mockPropertyChangedDelegate.Verify(
-                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == "TimerText")),
-                Times.Never);
         }
 
         [Test]
@@ -235,6 +183,137 @@ namespace GoOutsideTests.ViewModels
             _PomoViewModel.OnMouseLeave.Execute(null);
 
             Assert.That(_PomoViewModel.TimerText, Is.EqualTo("Start"));
+        }
+
+        [Test]
+        public void OnCreate_ColoursSetToGrey()
+        {
+            Assert.That(_PomoViewModel.LightColour, Is.EqualTo(Color.FromArgb(255, 212, 212, 212)));
+            Assert.That(_PomoViewModel.DarkColour, Is.EqualTo(Color.FromArgb(255, 128, 128, 128)));
+            Assert.That(_PomoViewModel.BackgroundColour, Is.EqualTo(Color.FromArgb(255, 85, 85, 85)));
+        }
+
+        [TestCaseSource(typeof(TestCaseFactory), "ColourChangeTestCases")]
+        public void OnPomoTimerChangeState_ColoursSetCorrectly(
+            PomoTimerState state,
+            Color lightColour, Color darkColour, Color backgroundColour)
+        {
+            _PomoViewModel.LightColour = Colors.Black;
+            _PomoViewModel.DarkColour = Colors.Black;
+            _PomoViewModel.BackgroundColour = Colors.Black;
+            var pomoTimerStateChangeEventArgs = new PomoTimerStateChangeEventArgs(state);
+
+            _MockPomoTimer.Raise(m => m.StateChanged += null, null, pomoTimerStateChangeEventArgs);
+
+            Assert.That(_PomoViewModel.LightColour, Is.EqualTo(lightColour));
+            Assert.That(_PomoViewModel.DarkColour, Is.EqualTo(darkColour));
+            Assert.That(_PomoViewModel.BackgroundColour, Is.EqualTo(backgroundColour));
+        }
+
+        [TestCaseSource(typeof(TestCaseFactory), "PropertyChangeTestCases")]
+        public void ChangeProperty_SendsPropertyChangedEvent(
+            TestCaseFactory.PropertyChangeTestCase testCase)
+        {
+            testCase.SetupAction(_PomoViewModel);
+            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
+            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
+
+            testCase.ChangeAction(_PomoViewModel);
+
+            mockPropertyChangedDelegate.Verify(
+                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == testCase.PropertyName)),
+                Times.Once);
+        }
+
+        [TestCaseSource(typeof(TestCaseFactory), "PropertyChangeTestCases")]
+        public void UnchangedProperty_DoesNotSendPropertyChangedEvent(
+            TestCaseFactory.PropertyChangeTestCase testCase)
+        {
+            testCase.SetupAction(_PomoViewModel);
+            var mockPropertyChangedDelegate = new Mock<PropertyChangedEventHandler>();
+            _PomoViewModel.PropertyChanged += mockPropertyChangedDelegate.Object;
+
+            // "Change" to same value as setup
+            testCase.SetupAction(_PomoViewModel);
+
+            mockPropertyChangedDelegate.Verify(
+                m => m(_PomoViewModel, It.Is<PropertyChangedEventArgs>(x => x.PropertyName == testCase.PropertyName)),
+                Times.Never);
+        }
+
+        public class TestCaseFactory
+        {
+            public static IEnumerable<PropertyChangeTestCase> PropertyChangeTestCases
+            {
+                get
+                {
+                    yield return new PropertyChangeTestCase
+                    {
+                        PropertyName = "Visible",
+                        SetupAction = m => m.Visible = false,
+                        ChangeAction = m => m.Visible = true
+                    };
+                    yield return new PropertyChangeTestCase
+                    {
+                        PropertyName = "TimerText",
+                        SetupAction = m => m.TimerText = "startValue",
+                        ChangeAction = m => m.TimerText = "newValue"
+                    };
+                    yield return new PropertyChangeTestCase
+                    {
+                        PropertyName = "LightColour",
+                        SetupAction = m => m.LightColour = Colors.Black,
+                        ChangeAction = m => m.LightColour = Colors.White
+                    };
+                    yield return new PropertyChangeTestCase
+                    {
+                        PropertyName = "DarkColour",
+                        SetupAction = m => m.DarkColour = Colors.Black,
+                        ChangeAction = m => m.DarkColour = Colors.White
+                    };
+                    yield return new PropertyChangeTestCase
+                    {
+                        PropertyName = "BackgroundColour",
+                        SetupAction = m => m.BackgroundColour = Colors.Black,
+                        ChangeAction = m => m.BackgroundColour = Colors.White
+                    };
+                }
+            }
+
+            public class PropertyChangeTestCase
+            {
+                public Action<PomoViewModel> SetupAction { get; set; }
+                public Action<PomoViewModel> ChangeAction { get; set; }
+                public string PropertyName { get; set; }
+            }
+
+            public static IEnumerable ColourChangeTestCases
+            {
+                get
+                {
+                    yield return new object[]
+                    {
+                        PomoTimerState.Disabled,
+                        Color.FromArgb(255, 212, 212, 212),
+                        Color.FromArgb(255, 128, 128, 128),
+                        Color.FromArgb(255, 85, 85, 85)
+                    };
+                    yield return new object[]
+                    {
+                        PomoTimerState.Work,
+                        Color.FromArgb(255, 212, 0, 0),
+                        Color.FromArgb(255, 128, 0, 0),
+                        Color.FromArgb(255, 85, 0, 0)
+                    };
+                    yield return new object[]
+                    {
+                        PomoTimerState.Rest,
+                        Color.FromArgb(255, 0, 212, 0),
+                        Color.FromArgb(255, 0, 128, 0),
+                        Color.FromArgb(255, 0, 85, 0)
+                    };
+                }
+            }
         }
     }
 }
