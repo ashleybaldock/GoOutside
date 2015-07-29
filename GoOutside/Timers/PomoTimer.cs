@@ -36,17 +36,31 @@ namespace GoOutside.Timers
         private readonly IConfiguration _Configuration;
         private readonly ITimeProvider _TimeProvider;
         private DateTime _StartTime;
-        public bool Running { get; private set; }
+        private PomoTimerState _State;
+
+        public bool Running { get { return _DispatcherTimer.IsEnabled; }}
         public event PomoTimerTickEventHandler Tick = delegate { };
-        public event PomoTimerStateChangeEventHandler StateChanged;
+        public event PomoTimerStateChangeEventHandler StateChanged = delegate { };
 
         public PomoTimer(IConfiguration configuration, ITimeProvider timeProvider)
         {
+            _State = PomoTimerState.Disabled;
             _Configuration = configuration;
             _TimeProvider = timeProvider;
             _DispatcherTimer = _TimeProvider.CreateDispatcherTimer();
             _DispatcherTimer.Interval = TimeSpan.FromMilliseconds(250);
             _DispatcherTimer.Tick += OnTick;
+        }
+
+        private PomoTimerState State
+        {
+            get { return _State; }
+            set
+            {
+                if (_State == value) return;
+                _State = value;
+                StateChanged(this, new PomoTimerStateChangeEventArgs(value));
+            }
         }
 
         private void OnTick(object sender, EventArgs eventArgs)
@@ -55,6 +69,17 @@ namespace GoOutside.Timers
             if (remaining > TimeSpan.Zero)
             {
                 Tick(this, new PomoTimerEventArgs(remaining));
+            }
+            else
+            {
+                if (State == PomoTimerState.Work)
+                {
+                    State = PomoTimerState.Rest;
+                }
+                else if (State == PomoTimerState.Rest)
+                {
+                    State = PomoTimerState.Disabled;
+                }
             }
         }
 
@@ -67,15 +92,17 @@ namespace GoOutside.Timers
         {
             _StartTime = _TimeProvider.Now();
             _DispatcherTimer.Start();
+            State = PomoTimerState.Work;
         }
 
         public void Stop()
         {
             _DispatcherTimer.Stop();
+            State = PomoTimerState.Disabled;
         }
     }
 
-    public class PomoTimer2 : IPomoTimer
+    public class PomoTimer2
     {
         public event PomoTimerTickEventHandler Tick = delegate { };
         public event PomoTimerStateChangeEventHandler StateChanged = delegate { };
@@ -86,12 +113,6 @@ namespace GoOutside.Timers
 
         public bool Running { get; private set; }
 
-        public PomoTimer2()
-        {
-//            _Timer = new DispatcherTimer(DispatcherPriority.DataBind);
-            _Timer.Tick += OnTick;
-        }
-
         public void Start()
         {
             _StartTime = DateTime.Now;
@@ -101,20 +122,13 @@ namespace GoOutside.Timers
             StateChanged(this, new PomoTimerStateChangeEventArgs(PomoTimerState.Work));
         }
 
-        public void Stop()
-        {
-            Running = false;
-            _Timer.Stop();
-            StateChanged(this, new PomoTimerStateChangeEventArgs(PomoTimerState.Disabled));
-        }
-
         private void OnTick(object sender, EventArgs args)
         {
             var remaining = _StartTime + TimeSpan.FromMinutes(25) - DateTime.Now;
 
             if (remaining <= TimeSpan.Zero)
             {
-                Stop();
+//                Stop();
             }
             else
             {
