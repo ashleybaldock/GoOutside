@@ -1,3 +1,4 @@
+using System;
 using System.Timers;
 
 namespace GoOutside.Scheduling
@@ -18,5 +19,16 @@ namespace GoOutside.Scheduling
         {
             Elapsed(sender, new PeriodElapsedEventArgs(elapsedEventArgs.SignalTime));
         }
+    }
+
+    public class DispatcherTimer : System.Windows.Threading.DispatcherTimer, IDispatcherTimer { }
+
+    public interface IDispatcherTimer
+    {
+        void Start();
+        void Stop();
+        TimeSpan Interval { get; set; }
+        bool IsEnabled { get; set; }
+        event EventHandler Tick;
     }
 }
