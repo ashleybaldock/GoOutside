@@ -15,6 +15,7 @@ namespace GoOutsideTests.TimerTests
         private PomoTimer _PomoTimer;
         private Mock<ITimeProvider> _MockTimeProvider;
         private Mock<IConfiguration> _MockConfiguration;
+        private Mock<PomoTimerTickEventHandler> _MockPomoTimerTickHandler;
 
         [SetUp]
         public void Create()
@@ -31,6 +32,8 @@ namespace GoOutsideTests.TimerTests
             _MockTimeProvider.Setup(m => m.CreateDispatcherTimer()).Returns(_MockDispatcherTimer.Object);
 
             _PomoTimer = new PomoTimer(_MockConfiguration.Object, _MockTimeProvider.Object);
+
+            _MockPomoTimerTickHandler = new Mock<PomoTimerTickEventHandler>();
         }
 
         [Test]
@@ -98,28 +101,8 @@ namespace GoOutsideTests.TimerTests
                 It.Is<PomoTimerStateChangeEventArgs>(x => x.State == PomoTimerState.Work)), Times.Once);
         }
 
-        [TestCaseSource(typeof(TestCaseFactory), "TimerTickTestCases")]
-        public void TickEventOccurs_WhenTimerStarted(
-            TimeSpan pomoDuration, TimeSpan progress, TimeSpan expectedTimeRemaining)
-        {
-            var mockHandler = SetupAndExecuteTimerTest(pomoDuration, progress);
-
-            // Verify
-            mockHandler.Verify(m => m(_PomoTimer, It.Is<PomoTimerEventArgs>(
-                x => x.TimeRemaining == expectedTimeRemaining)));
-        }
-
         [Test]
-        public void TickEventDoesNotOccur_WhenTimerNegative()
-        {
-            var mockHandler = SetupAndExecuteTimerTest(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(11));
-
-            // Verify
-            mockHandler.Verify(m => m(_PomoTimer, It.IsAny<PomoTimerEventArgs>()), Times.Never);
-        }
-
-        [Test]
-        public void TickEvent_SendsStateChangedEvent_WhenTimerNegative_AndStateIsWork()
+        public void TickEvent_SendsStateChangedEvent_WhenTimeRemainingZero_AndStateIsWork()
         {
             var mockStateHandler = new Mock<PomoTimerStateChangeEventHandler>();
             SetupTimerStateChangeTest(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
@@ -133,7 +116,7 @@ namespace GoOutsideTests.TimerTests
         }
 
         [Test]
-        public void TickEvent_SendsStateChangedEvent_WhenTimerNegative_AndStateIsRest()
+        public void TickEvent_SendsStateChangedEvent_WhenTimeRemainingZero_AndStateIsRest()
         {
             var mockStateHandler = new Mock<PomoTimerStateChangeEventHandler>();
             SetupTimerStateChangeTest(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
@@ -144,6 +127,69 @@ namespace GoOutsideTests.TimerTests
 
             mockStateHandler.Verify(m => m(_PomoTimer,
                 It.Is<PomoTimerStateChangeEventArgs>(x => x.State == PomoTimerState.Disabled)), Times.Once);
+        }
+
+        [Test]
+        public void TickEvent_StopsTimer_WhenTimeRemainingZero_AndStateIsRest()
+        {
+            var mockStateHandler = new Mock<PomoTimerStateChangeEventHandler>();
+            SetupTimerStateChangeTest(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
+            PutTimerInRestPhase();
+            _PomoTimer.StateChanged += mockStateHandler.Object;
+
+            MockTick();
+
+            _MockDispatcherTimer.Verify(m => m.Stop(), Times.Once);
+        }
+
+        [TestCaseSource(typeof(TestCaseFactory), "TimerTickTestCases")]
+        public void TickEventOccurs_WhenTimerStarted_AndStateIsWork(
+            TimeSpan pomoDuration, TimeSpan progress, TimeSpan expectedTimeRemaining)
+        {
+            SetupConfiguration(pomoDuration, TimeSpan.FromSeconds(1));
+            SetupTimerSequence(progress, TimeSpan.FromSeconds(1));
+
+            _PomoTimer.Tick += _MockPomoTimerTickHandler.Object;
+
+            _PomoTimer.Start();
+            MockTick();
+
+            // Verify
+            _MockPomoTimerTickHandler.Verify(m => m(_PomoTimer, It.Is<PomoTimerEventArgs>(
+                x => x.TimeRemaining == expectedTimeRemaining)));
+        }
+
+        [Test]
+        public void TickEventDoesNotOccur_WhenTimerNegative_AndStateIsRest()
+        {
+            var pomoDuration = TimeSpan.FromSeconds(10);
+            var pomoBreakDuration = TimeSpan.FromSeconds(5);
+            SetupConfiguration(pomoDuration, pomoBreakDuration);
+            SetupTimerSequence(pomoDuration, pomoBreakDuration + TimeSpan.FromSeconds(1));
+            PutTimerInRestPhase();
+
+            _PomoTimer.Tick += _MockPomoTimerTickHandler.Object;
+
+            MockTick();
+
+            // Verify
+            _MockPomoTimerTickHandler.Verify(m => m(_PomoTimer, It.IsAny<PomoTimerEventArgs>()), Times.Never);
+        }
+
+        [TestCaseSource(typeof(TestCaseFactory), "TimerTickTestCases")]
+        public void TickEventOccurs_WhenTimerStarted_AndStateIsRest(
+            TimeSpan pomoBreakDuration, TimeSpan progress, TimeSpan expectedTimeRemaining)
+        {
+            var pomoDuration = TimeSpan.FromSeconds(20);
+            SetupConfiguration(pomoDuration, pomoBreakDuration);
+            SetupTimerSequence(pomoDuration, progress);
+            PutTimerInRestPhase();
+
+            _PomoTimer.Tick += _MockPomoTimerTickHandler.Object;
+
+            // Verify
+            _MockPomoTimerTickHandler.Verify(m => m(_PomoTimer, It.Is<PomoTimerEventArgs>(
+                x => x.TimeRemaining == expectedTimeRemaining)));
         }
 
         private void MockTick()
@@ -159,33 +205,22 @@ namespace GoOutsideTests.TimerTests
 
         private void SetupTimerStateChangeTest(TimeSpan pomoDuration, TimeSpan pomoBreakDuration)
         {
-            _MockConfiguration.SetupGet(m => m.PomoDuration).Returns(pomoDuration);
-            _MockConfiguration.SetupGet(m => m.PomoBreakDuration).Returns(pomoBreakDuration);
-
-            _MockTimeProvider.SetupSequence(m => m.Now())
-                .Returns(DateTime.MinValue)
-                .Returns(DateTime.MinValue + pomoDuration)
-                .Returns(DateTime.MinValue + pomoBreakDuration);
+            SetupConfiguration(pomoDuration, pomoBreakDuration);
+            SetupTimerSequence(pomoDuration, pomoBreakDuration);
         }
 
-        private Mock<PomoTimerTickEventHandler> SetupAndExecuteTimerTest(
-            TimeSpan pomoDuration, TimeSpan progress)
+        private void SetupConfiguration(TimeSpan pomoDuration, TimeSpan pomoBreakDuration)
         {
-            // Arrange
             _MockConfiguration.SetupGet(m => m.PomoDuration).Returns(pomoDuration);
+            _MockConfiguration.SetupGet(m => m.PomoBreakDuration).Returns(pomoBreakDuration);
+        }
 
-            var mockHandler = new Mock<PomoTimerTickEventHandler>();
-            _PomoTimer.Tick += mockHandler.Object;
-
+        private void SetupTimerSequence(TimeSpan duration1, TimeSpan duration2)
+        {
             _MockTimeProvider.SetupSequence(m => m.Now())
                 .Returns(DateTime.MinValue)
-                .Returns(DateTime.MinValue + progress);
-
-            // Act
-            _PomoTimer.Start();
-            MockTick();
-
-            return mockHandler;
+                .Returns(DateTime.MinValue + duration1)
+                .Returns(DateTime.MinValue + duration1 + duration2);
         }
 
         private class TestCaseFactory

@@ -66,26 +66,33 @@ namespace GoOutside.Timers
         private void OnTick(object sender, EventArgs eventArgs)
         {
             var remaining = TimeRemaining();
-            if (remaining > TimeSpan.Zero)
-            {
-                Tick(this, new PomoTimerEventArgs(remaining));
-            }
-            else
+            if (remaining <= TimeSpan.Zero)
             {
                 if (State == PomoTimerState.Work)
                 {
-                    State = PomoTimerState.Rest;
+                    StartRest();
+                    remaining = _Configuration.PomoBreakDuration;
                 }
-                else if (State == PomoTimerState.Rest)
+                else
                 {
-                    State = PomoTimerState.Disabled;
+                    Stop();
+                    return;
                 }
             }
+            Tick(this, new PomoTimerEventArgs(remaining));
         }
 
         private TimeSpan TimeRemaining()
         {
-            return _StartTime + _Configuration.PomoDuration - _TimeProvider.Now();
+            var duration = State == PomoTimerState.Work
+                ? _Configuration.PomoDuration
+                : _Configuration.PomoDuration + _Configuration.PomoBreakDuration;
+            return _StartTime + duration - _TimeProvider.Now();
+        }
+
+        private void StartRest()
+        {
+            State = PomoTimerState.Rest;
         }
 
         public void Start()
@@ -99,41 +106,6 @@ namespace GoOutside.Timers
         {
             _DispatcherTimer.Stop();
             State = PomoTimerState.Disabled;
-        }
-    }
-
-    public class PomoTimer2
-    {
-        public event PomoTimerTickEventHandler Tick = delegate { };
-        public event PomoTimerStateChangeEventHandler StateChanged = delegate { };
-
-        private DateTime _StartTime;
-
-        private readonly DispatcherTimer _Timer;
-
-        public bool Running { get; private set; }
-
-        public void Start()
-        {
-            _StartTime = DateTime.Now;
-            _Timer.Interval = TimeSpan.FromMilliseconds(250);
-            _Timer.Start();
-            Running = true;
-            StateChanged(this, new PomoTimerStateChangeEventArgs(PomoTimerState.Work));
-        }
-
-        private void OnTick(object sender, EventArgs args)
-        {
-            var remaining = _StartTime + TimeSpan.FromMinutes(25) - DateTime.Now;
-
-            if (remaining <= TimeSpan.Zero)
-            {
-//                Stop();
-            }
-            else
-            {
-                Tick(this, new PomoTimerEventArgs(remaining));
-            }
         }
     }
 }
