@@ -2,11 +2,11 @@
 
 namespace GoOutside.Timers.Events
 {
-    public class PomoTimerTickEventArgs
+    public class CountdownTickEventArgs
     {
         public TimeSpan TimeRemaining;
 
-        public PomoTimerTickEventArgs(TimeSpan timeRemaining)
+        public CountdownTickEventArgs(TimeSpan timeRemaining)
         {
             TimeRemaining = timeRemaining;
         }

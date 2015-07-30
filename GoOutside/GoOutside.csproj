@@ -66,15 +66,16 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Events\BreakTakenEventHandler.cs" />
     <Compile Include="Events\ISystemEvents.cs" />
+    <Compile Include="Scheduling\DispatcherTimer.cs" />
+    <Compile Include="Scheduling\IDispatcherTimer.cs" />
     <Compile Include="Timers\Events\CountdownTimerTickEventHandler.cs" />
-    <Compile Include="Timers\Events\CountdownTimerDoneEventHandler.cs" />
+    <Compile Include="Timers\Events\CountdownDoneEventHandler.cs" />
     <Compile Include="Timers\ITimeProvider.cs" />
     <Compile Include="Timers\PomoTimerState.cs" />
     <Compile Include="Events\SystemEventsWrapper.cs" />
     <Compile Include="Scheduling\IPeriodFactory.cs" />
     <Compile Include="Scheduling\PeriodFactory.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
-    <Compile Include="Timers\Events\CountdownTimerTickEventArgs.cs" />
     <Compile Include="Timers\ICountdownTimer.cs" />
     <Compile Include="Timers\PomoTimer.cs" />
     <Compile Include="Timers\TimeProvider.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Timers\Events\PomoTimerTickEventHandler.cs" />
     <Compile Include="Timers\Events\PomoTimerStateChangeEventArgs.cs" />
     <Compile Include="Timers\Events\PomoTimerStateChangeEventHandler.cs" />
-    <Compile Include="Timers\Events\PomoTimerTickEventArgs.cs" />
+    <Compile Include="Timers\Events\CountdownTickEventArgs.cs" />
     <Compile Include="Timers\PomoTimerOld.cs" />
     <Compile Include="ViewModels\PomoViewModel.cs" />
     <Compile Include="SampleData\PomoViewModelSample.cs" />

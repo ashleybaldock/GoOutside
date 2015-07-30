@@ -118,7 +118,7 @@ namespace GoOutsideTests.ViewModels
             _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
 
             var timeRemaining = TimeSpan.FromMinutes(10);
-            var pomoTimerEventArgs = new PomoTimerTickEventArgs(timeRemaining);
+            var pomoTimerEventArgs = new CountdownTickEventArgs(timeRemaining);
             _MockPomoTimer.Raise(m => m.Tick += null, null, pomoTimerEventArgs);
 
             Assert.That(_PomoViewModel.TimerText, Is.EqualTo("10:00"));
@@ -152,7 +152,7 @@ namespace GoOutsideTests.ViewModels
             _PomoViewModel.TimerText = "initialValue";
             _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
             var timeRemaining = TimeSpan.FromMinutes(10);
-            var pomoTimerEventArgs = new PomoTimerTickEventArgs(timeRemaining);
+            var pomoTimerEventArgs = new CountdownTickEventArgs(timeRemaining);
 
             _PomoViewModel.OnMouseEnter.Execute(null);
             _MockPomoTimer.Raise(m => m.Tick += null, null, pomoTimerEventArgs);
@@ -166,7 +166,7 @@ namespace GoOutsideTests.ViewModels
             _PomoViewModel.TimerText = "initialValue";
             _MockPomoTimer.SetupGet(m => m.Running).Returns(true);
             var timeRemaining = TimeSpan.FromMinutes(10);
-            var pomoTimerEventArgs = new PomoTimerTickEventArgs(timeRemaining);
+            var pomoTimerEventArgs = new CountdownTickEventArgs(timeRemaining);
             _PomoViewModel.OnMouseEnter.Execute(null);
 
             _PomoViewModel.OnMouseLeave.Execute(null);

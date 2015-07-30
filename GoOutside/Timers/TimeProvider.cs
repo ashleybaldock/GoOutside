@@ -3,21 +3,21 @@ using GoOutside.Scheduling;
 
 namespace GoOutside.Timers
 {
-    class TimeProvider : ITimeProvider
+    public class TimeProvider : ITimeProvider
     {
         public DateTime Now()
         {
             return DateTime.Now;
         }
 
-        public IDispatcherTimer CreateDispatcherTimer()
+        public IDispatcherTimer CreateDispatcherTimer(TimeSpan interval)
         {
-            return new DispatcherTimer();
+            return new DispatcherTimer {Interval = interval};
         }
 
         public ICountdownTimer CreateCountdownTimer(TimeSpan duration, TimeSpan interval)
         {
-            return null;
+            return new CountdownTimer(this, duration, interval);
         }
     }
 }

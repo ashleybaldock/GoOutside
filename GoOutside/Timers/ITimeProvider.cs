@@ -6,7 +6,7 @@ namespace GoOutside.Timers
     public interface ITimeProvider
     {
         DateTime Now();
-        IDispatcherTimer CreateDispatcherTimer();
+        IDispatcherTimer CreateDispatcherTimer(TimeSpan interval);
         ICountdownTimer CreateCountdownTimer(TimeSpan duration, TimeSpan interval);
     }
 }

@@ -23,7 +23,7 @@ namespace GoOutside.Timers
             _State = PomoTimerState.Disabled;
             _Configuration = configuration;
             _TimeProvider = timeProvider;
-            _DispatcherTimer = _TimeProvider.CreateDispatcherTimer();
+//            _DispatcherTimer = _TimeProvider.CreateDispatcherTimer();
             _DispatcherTimer.Interval = TimeSpan.FromMilliseconds(250);
             _DispatcherTimer.Tick += OnTick;
         }
@@ -35,7 +35,7 @@ namespace GoOutside.Timers
             {
                 Stop();
             }
-            Tick(this, new PomoTimerTickEventArgs(remaining));
+            Tick(this, new CountdownTickEventArgs(remaining));
         }
 
         private TimeSpan TimeRemaining()

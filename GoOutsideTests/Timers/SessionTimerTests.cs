@@ -6,7 +6,7 @@ using Microsoft.Win32;
 using Moq;
 using NUnit.Framework;
 
-namespace GoOutsideTests.TimerTests
+namespace GoOutsideTests.Timers
 {
     [TestFixture]
     public class SessionTimerTests

@@ -1,11 +1,10 @@
 using System;
-using GoOutside.Events;
 using GoOutside.Timers;
 using GoOutside.Timers.Events;
 using Moq;
 using NUnit.Framework;
 
-namespace GoOutsideTests.TimerTests
+namespace GoOutsideTests.Timers
 {
     [TestFixture]
     class PomoTimerTests
@@ -164,10 +163,10 @@ namespace GoOutsideTests.TimerTests
             AttachMockTickHandler();
 
             _MockWorkTimer.Raise(m => m.Tick += null, _MockWorkTimer.Object,
-                new CountdownTimerTickEventArgs(timeRemaining));
+                new CountdownTickEventArgs(timeRemaining));
 
             _MockTickHandler.Verify(m => m(_PomoTimer,
-                It.Is<PomoTimerTickEventArgs>(
+                It.Is<CountdownTickEventArgs>(
                     x => x.TimeRemaining == timeRemaining)), Times.Once);
         }
 
@@ -179,10 +178,10 @@ namespace GoOutsideTests.TimerTests
             AttachMockTickHandler();
 
             _MockRestTimer.Raise(m => m.Tick += null, _MockRestTimer.Object,
-                new CountdownTimerTickEventArgs(timeRemaining));
+                new CountdownTickEventArgs(timeRemaining));
 
             _MockTickHandler.Verify(m => m(_PomoTimer,
-                It.Is<PomoTimerTickEventArgs>(
+                It.Is<CountdownTickEventArgs>(
                     x => x.TimeRemaining == timeRemaining)), Times.Once);
         }
 

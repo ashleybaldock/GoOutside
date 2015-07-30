@@ -23,9 +23,9 @@ namespace GoOutside.Timers
             _RestTimer.Tick += OnTick;
         }
 
-        private void OnTick(object sender, CountdownTimerTickEventArgs args)
+        private void OnTick(object sender, CountdownTickEventArgs args)
         {
-            Tick(this, new PomoTimerTickEventArgs(args.RemainingTime));
+            Tick(this, args);
         }
 
         private void OnRestTimerDone(object sender, EventArgs args)
