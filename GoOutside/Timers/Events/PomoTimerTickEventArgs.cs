@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoOutside.Events
+namespace GoOutside.Timers.Events
 {
     public class PomoTimerTickEventArgs
     {

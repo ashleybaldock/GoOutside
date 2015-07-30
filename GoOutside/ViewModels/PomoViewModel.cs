@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using GoOutside.Events;
 using GoOutside.Timers;
+using GoOutside.Timers.Events;
 
 namespace GoOutside.ViewModels
 {

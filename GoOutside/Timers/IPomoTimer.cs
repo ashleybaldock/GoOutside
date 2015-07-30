@@ -1,4 +1,5 @@
 using GoOutside.Events;
+using GoOutside.Timers.Events;
 
 namespace GoOutside.Timers
 {

@@ -1,4 +1,4 @@
-﻿namespace GoOutside.Events
+﻿namespace GoOutside.Timers.Events
 {
     public class PomoTimerStateChangeEventArgs
     {

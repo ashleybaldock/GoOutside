@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Windows.Media;
 using GoOutside.Events;
 using GoOutside.Timers;
+using GoOutside.Timers.Events;
 using GoOutside.ViewModels;
 using Moq;
 using NUnit.Framework;

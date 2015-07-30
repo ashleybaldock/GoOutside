@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduling\PeriodTests.cs" />
+    <Compile Include="TimerTests\CountdownTimerTests.cs" />
+    <Compile Include="TimerTests\PomoTimerTests.cs" />
     <Compile Include="TimerTests\SessionTimerTests.cs" />
     <Compile Include="TimerTests\PomoTimerOldTests.cs" />
     <Compile Include="ViewModels\PomoViewModelTests.cs" />

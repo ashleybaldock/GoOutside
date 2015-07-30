@@ -1,4 +1,4 @@
-﻿namespace GoOutside.Events
+﻿namespace GoOutside.Timers
 {
     public enum PomoTimerState
     {
