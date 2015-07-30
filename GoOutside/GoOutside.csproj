@@ -79,8 +79,8 @@
     <Compile Include="Events\PomoTimerTickEventHandler.cs" />
     <Compile Include="Events\PomoTimerStateChangeEventArgs.cs" />
     <Compile Include="Events\PomoTimerStateChangeEventHandler.cs" />
-    <Compile Include="Events\PomoTimerEventArgs.cs" />
-    <Compile Include="Timers\PomoTimer.cs" />
+    <Compile Include="Events\PomoTimerTickEventArgs.cs" />
+    <Compile Include="Timers\PomoTimerOld.cs" />
     <Compile Include="ViewModels\PomoViewModel.cs" />
     <Compile Include="SampleData\PomoViewModelSample.cs" />
     <Compile Include="Views\Pomo.xaml.cs">

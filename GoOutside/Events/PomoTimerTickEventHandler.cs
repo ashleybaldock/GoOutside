@@ -1,4 +1,4 @@
 namespace GoOutside.Events
 {
-    public delegate void PomoTimerTickEventHandler(object sender, PomoTimerEventArgs args);
+    public delegate void PomoTimerTickEventHandler(object sender, PomoTimerTickEventArgs args);
 }

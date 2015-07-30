@@ -190,7 +190,7 @@ namespace GoOutside.ViewModels
             }
         }
 
-        private void OnTick(object sender, PomoTimerEventArgs args)
+        private void OnTick(object sender, PomoTimerTickEventArgs args)
         {
             if (_ShowTimer) TimerText = args.TimeRemaining.ToString(@"mm\:ss");
         }
