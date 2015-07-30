@@ -1,5 +1,4 @@
 ﻿using System;
-using GoOutside.Events;
 using GoOutside.Timers.Events;
 
 namespace GoOutside.Timers
@@ -47,7 +46,7 @@ namespace GoOutside.Timers
 
         public void Stop()
         {
-            if (_WorkTimer.IsEnabled || _RestTimer.IsEnabled)
+            if (_WorkTimer.Running || _RestTimer.Running)
             {
                 StateChanged(this, new PomoTimerStateChangeEventArgs(PomoTimerState.Disabled));
             }

@@ -97,6 +97,33 @@ namespace GoOutsideTests.Timers
                 It.IsAny<EventArgs>()), Times.Once);
         }
 
+        [Test]
+        public void IntervalTimer_TickWithNoTimeRemaining_StopsDispatcherTimer()
+        {
+            SetupTimerSequence(TimeSpan.FromSeconds(10));
+
+            _CountdownTimer.Start();
+            MockTick();
+
+            _MockDispatcherTimer.Verify(m => m.Stop(), Times.Once);
+        }
+
+        [Test]
+        public void Running_ReturnsTrueWhenDispatcherTimerRunning()
+        {
+            _MockDispatcherTimer.SetupGet(x => x.IsEnabled).Returns(true);
+
+            Assert.That(_CountdownTimer.Running, Is.True);
+        }
+
+        [Test]
+        public void Running_ReturnsFalseWhenDispatcherTimerNotRunning()
+        {
+            _MockDispatcherTimer.SetupGet(x => x.IsEnabled).Returns(false);
+
+            Assert.That(_CountdownTimer.Running, Is.False);
+        }
+
         private void MockTick()
         {
             _MockDispatcherTimer.Raise(m => m.Tick += null, _MockDispatcherTimer.Object, new EventArgs());

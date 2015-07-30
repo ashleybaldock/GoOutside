@@ -24,15 +24,15 @@ namespace GoOutsideTests.Timers
 
             _MockWorkTimer = new Mock<ICountdownTimer>();
             _MockWorkTimer.Setup(m => m.Start())
-                .Callback(() => _MockWorkTimer.SetupGet(x => x.IsEnabled).Returns(true));
+                .Callback(() => _MockWorkTimer.SetupGet(x => x.Running).Returns(true));
             _MockWorkTimer.Setup(m => m.Stop())
-                .Callback(() => _MockWorkTimer.SetupGet(x => x.IsEnabled).Returns(false));
+                .Callback(() => _MockWorkTimer.SetupGet(x => x.Running).Returns(false));
 
             _MockRestTimer = new Mock<ICountdownTimer>();
             _MockRestTimer.Setup(m => m.Start())
-                .Callback(() => _MockRestTimer.SetupGet(x => x.IsEnabled).Returns(true));
+                .Callback(() => _MockRestTimer.SetupGet(x => x.Running).Returns(true));
             _MockRestTimer.Setup(m => m.Stop())
-                .Callback(() => _MockRestTimer.SetupGet(x => x.IsEnabled).Returns(false));
+                .Callback(() => _MockRestTimer.SetupGet(x => x.Running).Returns(false));
 
             _MockTimeProvider = new Mock<ITimeProvider>();
             _MockTimeProvider.Setup(

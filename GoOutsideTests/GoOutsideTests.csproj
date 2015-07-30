@@ -62,7 +62,6 @@
     <Compile Include="Timers\CountdownTimerTests.cs" />
     <Compile Include="Timers\PomoTimerTests.cs" />
     <Compile Include="Timers\SessionTimerTests.cs" />
-    <Compile Include="Timers\PomoTimerOldTests.cs" />
     <Compile Include="ViewModels\PomoViewModelTests.cs" />
     <Compile Include="ViewModels\PopUpViewModelTests.cs" />
   </ItemGroup>

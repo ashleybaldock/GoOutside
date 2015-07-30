@@ -68,6 +68,7 @@
     <Compile Include="Events\ISystemEvents.cs" />
     <Compile Include="Scheduling\DispatcherTimer.cs" />
     <Compile Include="Scheduling\IDispatcherTimer.cs" />
+    <Compile Include="Timers\CountdownTimer.cs" />
     <Compile Include="Timers\Events\CountdownTimerTickEventHandler.cs" />
     <Compile Include="Timers\Events\CountdownDoneEventHandler.cs" />
     <Compile Include="Timers\ITimeProvider.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Timers\Events\PomoTimerStateChangeEventArgs.cs" />
     <Compile Include="Timers\Events\PomoTimerStateChangeEventHandler.cs" />
     <Compile Include="Timers\Events\CountdownTickEventArgs.cs" />
-    <Compile Include="Timers\PomoTimerOld.cs" />
     <Compile Include="ViewModels\PomoViewModel.cs" />
     <Compile Include="SampleData\PomoViewModelSample.cs" />
     <Compile Include="Views\Pomo.xaml.cs">

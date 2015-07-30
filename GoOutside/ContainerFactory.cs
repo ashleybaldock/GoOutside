@@ -21,12 +21,13 @@ namespace GoOutside
                                                   Settings.Default.PeriodAfterBreakDelay.TotalMilliseconds);
             var period = new Period(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds);
 #endif
+            containerBuilder.RegisterType<TimeProvider>().As<ITimeProvider>();
             containerBuilder.RegisterInstance(periodFactory).As<IPeriodFactory>();
 
             containerBuilder.RegisterType<SystemEventsWrapper>().As<ISystemEvents>();
             containerBuilder.RegisterType<Dispatcher>().As<IDispatcher>();
             containerBuilder.RegisterType<SessionTimer>().As<ISessionTimer>().SingleInstance();
-            containerBuilder.RegisterType<PomoTimerOld>().As<IPomoTimer>();
+            containerBuilder.RegisterType<PomoTimer>().As<IPomoTimer>();
 
             containerBuilder.RegisterType<NotifyIconViewModel>();
             containerBuilder.RegisterType<PopUpViewModel>().SingleInstance();
