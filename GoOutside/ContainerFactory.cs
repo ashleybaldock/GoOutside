@@ -15,11 +15,9 @@ namespace GoOutside
 
 #if DEBUG
             var periodFactory = new PeriodFactory(2000, 5000);
-            var period = new Period(2000);
 #else
             var periodFactory = new PeriodFactory(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds,
                                                   Settings.Default.PeriodAfterBreakDelay.TotalMilliseconds);
-            var period = new Period(Settings.Default.PeriodBetweenBreaks.TotalMilliseconds);
 #endif
             containerBuilder.RegisterType<TimeProvider>().As<ITimeProvider>();
             containerBuilder.RegisterInstance(periodFactory).As<IPeriodFactory>();
