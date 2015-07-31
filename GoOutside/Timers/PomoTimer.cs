@@ -30,12 +30,15 @@ namespace GoOutside.Timers
         private void OnRestTimerDone(object sender, EventArgs args)
         {
             StateChanged(this, new PomoTimerStateChangeEventArgs(PomoTimerState.Disabled));
+            _WorkTimer.Stop();
+            _RestTimer.Stop();
         }
 
         private void OnWorkTimerDone(object sender, EventArgs args)
         {
             StateChanged(this, new PomoTimerStateChangeEventArgs(PomoTimerState.Rest));
             _RestTimer.Start();
+            _WorkTimer.Stop();
         }
 
         public void Start()
@@ -54,7 +57,10 @@ namespace GoOutside.Timers
             _RestTimer.Stop();
         }
 
-        public bool Running { get; private set; }
+        public bool Running
+        {
+            get { return _WorkTimer.Running || _RestTimer.Running; }
+        }
 
         public event PomoTimerTickEventHandler Tick = delegate { };
         public event PomoTimerStateChangeEventHandler StateChanged = delegate { };

@@ -46,12 +46,6 @@ namespace GoOutsideTests.Timers
         }
 
         [Test]
-        public void Create_SetsUpCorrectly()
-        {
-//            Assert.That(_PomoTimer.State, Is.EqualTo(PomoTimerState.Disabled));
-        }
-
-        [Test]
         public void Start_SendsStateChangedEvent()
         {
             AttachMockStateChangeHandler();
@@ -155,9 +149,18 @@ namespace GoOutsideTests.Timers
             _MockRestTimer.Verify(m => m.Start(), Times.Once);
         }
 
+        [Test]
+        public void WhenWorkCountdown_DoneEventFired_StopsWorkTimer()
+        {
+            _PomoTimer.Start();
+            _MockWorkTimer.Raise(m => m.Done += null, _MockWorkTimer.Object, new EventArgs());
+
+            _MockWorkTimer.Verify(m => m.Stop(), Times.Once);
+        }
+
         [TestCase(5)]
         [TestCase(25)]
-        public void WhenWorkCountdown_TickEventFired_SendsTickEvent(int time)
+        public void WhenWorkCountdownTickEventFired_SendsTickEvent(int time)
         {
             var timeRemaining = TimeSpan.FromMinutes(time);
             AttachMockTickHandler();
@@ -172,7 +175,7 @@ namespace GoOutsideTests.Timers
 
         [TestCase(5)]
         [TestCase(25)]
-        public void WhenRestCountdown_TickEventFired_SendsTickEvent(int time)
+        public void WhenRestCountdownTickEventFired_SendsTickEvent(int time)
         {
             var timeRemaining = TimeSpan.FromMinutes(time);
             AttachMockTickHandler();
@@ -183,6 +186,42 @@ namespace GoOutsideTests.Timers
             _MockTickHandler.Verify(m => m(_PomoTimer,
                 It.Is<CountdownTickEventArgs>(
                     x => x.TimeRemaining == timeRemaining)), Times.Once);
+        }
+
+        [Test]
+        public void Running_ReturnsCorrectly_AtPhasesOfTimer()
+        {
+            Assert.That(_PomoTimer.Running, Is.False);
+
+            _PomoTimer.Start();
+
+            Assert.That(_PomoTimer.Running, Is.True);
+
+            _MockWorkTimer.Raise(m => m.Done += null, _MockWorkTimer.Object, new EventArgs());
+
+            Assert.That(_PomoTimer.Running, Is.True);
+
+            _MockRestTimer.Raise(m => m.Done += null, _MockRestTimer.Object, new EventArgs());
+
+            Assert.That(_PomoTimer.Running, Is.False);
+        }
+
+        [Test]
+        public void Running_ReturnsCorrectly_WhenStopDuringWorkPhase()
+        {
+            _PomoTimer.Start();
+            _PomoTimer.Stop();
+
+            Assert.That(_PomoTimer.Running, Is.False);
+        }
+
+        [Test]
+        public void Running_ReturnsCorrectly_WhenStopDuringRestPhase()
+        {
+            PutIntoRestPhase();
+            _PomoTimer.Stop();
+
+            Assert.That(_PomoTimer.Running, Is.False);
         }
 
         private void AttachMockStateChangeHandler()
