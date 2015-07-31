@@ -187,11 +187,9 @@ namespace GoOutsideTests.ViewModels
         }
 
         [Test]
-        public void OnCreate_ColoursSetToGrey()
+        public void OnCreate_ColourSetToDisabled()
         {
-            Assert.That(_PomoViewModel.LightColour, Is.EqualTo(Color.FromArgb(255, 212, 212, 212)));
-            Assert.That(_PomoViewModel.DarkColour, Is.EqualTo(Color.FromArgb(255, 128, 128, 128)));
-            Assert.That(_PomoViewModel.BackgroundColour, Is.EqualTo(Color.FromArgb(255, 85, 85, 85)));
+            Assert.That(_PomoViewModel.ColourSet, Is.EqualTo(TomatoColours.Disabled));
         }
 
         [TestCaseSource(typeof(TestCaseFactory), "ColourChangeTestCases")]
@@ -262,21 +260,9 @@ namespace GoOutsideTests.ViewModels
                     };
                     yield return new PropertyChangeTestCase
                     {
-                        PropertyName = "LightColour",
-                        SetupAction = m => m.LightColour = Colors.Black,
-                        ChangeAction = m => m.LightColour = Colors.White
-                    };
-                    yield return new PropertyChangeTestCase
-                    {
-                        PropertyName = "DarkColour",
-                        SetupAction = m => m.DarkColour = Colors.Black,
-                        ChangeAction = m => m.DarkColour = Colors.White
-                    };
-                    yield return new PropertyChangeTestCase
-                    {
-                        PropertyName = "BackgroundColour",
-                        SetupAction = m => m.BackgroundColour = Colors.Black,
-                        ChangeAction = m => m.BackgroundColour = Colors.White
+                        PropertyName = "ColourSet",
+                        SetupAction = m => m.ColourSet = TomatoColours.Work,
+                        ChangeAction = m => m.ColourSet = TomatoColours.Rest
                     };
                 }
             }

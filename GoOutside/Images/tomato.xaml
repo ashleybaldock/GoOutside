@@ -11,8 +11,12 @@
             <TranslateTransform X="0" Y="0"/>
         </Canvas.RenderTransform>
         <Canvas.Resources>
-            <SolidColorBrush x:Key="DarkColourBrush" Color="{Binding DarkColour}" />
-            <SolidColorBrush x:Key="BackgroundColourBrush" Color="{Binding BackgroundColour}" />
+            <SolidColorBrush x:Key="DarkColourBrush" Color="{Binding ColourSet.Dark}" />
+            <SolidColorBrush x:Key="BackgroundColourBrush" Color="{Binding ColourSet.Background}" />
+            <GradientStopCollection x:Key="StemGradientStopCollection">
+                <GradientStop Color="{Binding ColourSet.Stem}" Offset="0"/>
+                <GradientStop Color="#00CCFF00" Offset="1"/>
+            </GradientStopCollection>
             <BlurEffect x:Key="BlurRadius0" Radius="0"/>
             <BlurEffect x:Key="BlurRadius1" Radius="1"/>
             <BlurEffect x:Key="BlurRadius2" Radius="2"/>
@@ -23,11 +27,11 @@
             <RadialGradientBrush x:Key="RadialGradient4805" MappingMode="Absolute" Center="377,120" GradientOrigin="377,120" RadiusX="108.04929" RadiusY="108.04929">
                 <RadialGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="{Binding LightColour}" Offset="0"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.53918576"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.71091092"/>
-                        <GradientStop Color="{Binding LightColour}" Offset="0.86236066"/>
-                        <GradientStop Color="{Binding DarkColour}" Offset="1"/>
+                        <GradientStop Color="{Binding ColourSet.Light}" Offset="0"/>
+                        <GradientStop Color="{Binding ColourSet.Light}" Offset="0.53918576"/>
+                        <GradientStop Color="{Binding ColourSet.Light}" Offset="0.71091092"/>
+                        <GradientStop Color="{Binding ColourSet.Light}" Offset="0.86236066"/>
+                        <GradientStop Color="{Binding ColourSet.Dark}" Offset="1"/>
                     </GradientStopCollection>
                 </RadialGradientBrush.GradientStops>
                 <RadialGradientBrush.Transform>
@@ -45,7 +49,7 @@
             <LinearGradientBrush x:Key="LinearGradient4809" MappingMode="Absolute" StartPoint="289,625" EndPoint="302,565">
                 <LinearGradientBrush.GradientStops>
                     <GradientStopCollection>
-                        <GradientStop Color="{Binding DarkColour}" Offset="0"/>
+                        <GradientStop Color="{Binding ColourSet.Dark}" Offset="0"/>
                         <GradientStop Color="#00AA0000" Offset="1"/>
                     </GradientStopCollection>
                 </LinearGradientBrush.GradientStops>
@@ -53,60 +57,20 @@
                     <TranslateTransform X="-2.9030318" Y="2.1772739"/>
                 </LinearGradientBrush.Transform>
             </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4811" MappingMode="Absolute" StartPoint="293,473" EndPoint="281,467">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4813" MappingMode="Absolute" StartPoint="265,480" EndPoint="255,476">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
+            <LinearGradientBrush x:Key="LinearGradient4811" MappingMode="Absolute" StartPoint="293,473" EndPoint="281,467" GradientStops="{StaticResource StemGradientStopCollection}" />
+            <LinearGradientBrush x:Key="LinearGradient4813" MappingMode="Absolute" StartPoint="265,480" EndPoint="255,476" GradientStops="{StaticResource StemGradientStopCollection}">
                 <LinearGradientBrush.Transform>
                     <MatrixTransform Matrix="0.97869238 -0.07464566 0.2059119 0.72135897 -283.0922 -244.44671"/>
                 </LinearGradientBrush.Transform>
             </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4815" MappingMode="Absolute" StartPoint="262,463" EndPoint="277,463">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
+            <LinearGradientBrush x:Key="LinearGradient4815" MappingMode="Absolute" StartPoint="262,463" EndPoint="277,463" GradientStops="{StaticResource StemGradientStopCollection}">
                 <LinearGradientBrush.Transform>
                     <MatrixTransform Matrix="0.97869238 -0.07464566 0.2059119 0.72135897 -86.106258 139.47759"/>
                 </LinearGradientBrush.Transform>
             </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4817" MappingMode="Absolute" StartPoint="121,59" EndPoint="117,50">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4819" MappingMode="Absolute" StartPoint="363,480" EndPoint="351,465">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="LinearGradient4821" MappingMode="Absolute" StartPoint="320,501" EndPoint="332,517">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#FFCCFF00" Offset="0"/>
-                        <GradientStop Color="#00CCFF00" Offset="1"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="LinearGradient4817" MappingMode="Absolute" StartPoint="121,59" EndPoint="117,50" GradientStops="{StaticResource StemGradientStopCollection}" />
+            <LinearGradientBrush x:Key="LinearGradient4819" MappingMode="Absolute" StartPoint="363,480" EndPoint="351,465" GradientStops="{StaticResource StemGradientStopCollection}" />
+            <LinearGradientBrush x:Key="LinearGradient4821" MappingMode="Absolute" StartPoint="320,501" EndPoint="332,517" GradientStops="{StaticResource StemGradientStopCollection}" />
         </Canvas.Resources>
         <Canvas Name="layer1">
             <Canvas.RenderTransform>
@@ -116,53 +80,48 @@
                 <Canvas.RenderTransform>
                     <MatrixTransform Matrix="0.48806263 0 0 0.48806263 153.24748 411.39073"/>
                 </Canvas.RenderTransform>
-                <Path Name="path3249" Fill="#FFFFFFFF" StrokeThickness="2" Data="m 443.43809 154.30888 a 29.030317 14.15228 0 0 1 -29.03031 14.15228 29.030317 14.15228 0 0 1 -29.03032 -14.15228 29.030317 14.15228 0 0 1 29.03032 -14.15228 29.030317 14.15228 0 0 1 29.03031 14.15228 z">
-                    <Path.RenderTransform>
-                        <MatrixTransform Matrix="0.73689939 -0.25362087 0.17549853 1.0649267 154.35732 479.71428"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path Name="path4149" Fill="{StaticResource BackgroundColourBrush}" StrokeThickness="3.0493443" Stroke="{StaticResource BackgroundColourBrush}" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 482.62904 161.56647 A 107.04929 99.065956 0 0 1 375.57974 260.63242 107.04929 99.065956 0 0 1 268.53045 161.56647 107.04929 99.065956 0 0 1 375.57974 62.500511 107.04929 99.065956 0 0 1 482.62904 161.56647 Z">
+                <Path Name="Outline" Fill="{StaticResource BackgroundColourBrush}" StrokeThickness="3.0493443" Stroke="{StaticResource BackgroundColourBrush}" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 482.62904 161.56647 A 107.04929 99.065956 0 0 1 375.57974 260.63242 107.04929 99.065956 0 0 1 268.53045 161.56647 107.04929 99.065956 0 0 1 375.57974 62.500511 107.04929 99.065956 0 0 1 482.62904 161.56647 Z">
                     <Path.RenderTransform>
                         <MatrixTransform Matrix="3.4859696 0 0 3.4859696 -677.33541 -294.17449"/>
                     </Path.RenderTransform>
                 </Path>
-                <Canvas Name="g4750">
-                    <Canvas Name="g4516">
+                <Canvas Name="Tomato">
+                    <Canvas Name="TomatoBody">
                         <Canvas.RenderTransform>
                             <MatrixTransform Matrix="3.4859696 0 0 3.4859696 -427.54621 -1604.0954"/>
                         </Canvas.RenderTransform>
-                        <Path Name="path3235" Fill="{StaticResource RadialGradient4805}" StrokeThickness="2" Data="M 482.62904 161.56647 A 107.04929 99.065956 0 0 1 375.57974 260.63242 107.04929 99.065956 0 0 1 268.53045 161.56647 107.04929 99.065956 0 0 1 375.57974 62.500511 107.04929 99.065956 0 0 1 482.62904 161.56647 Z">
+                        <Path Name="LightRedFill" Fill="{StaticResource RadialGradient4805}" StrokeThickness="2" Data="M 482.62904 161.56647 A 107.04929 99.065956 0 0 1 375.57974 260.63242 107.04929 99.065956 0 0 1 268.53045 161.56647 107.04929 99.065956 0 0 1 375.57974 62.500511 107.04929 99.065956 0 0 1 482.62904 161.56647 Z">
                             <Path.RenderTransform>
                                 <TranslateTransform X="-71.655589" Y="375.19573"/>
                             </Path.RenderTransform>
                         </Path>
-                        <Canvas Name="g4506">
-                            <Path Name="path4492" Fill="#FF241F1C" StrokeThickness="0.93065888" Effect="{StaticResource BlurRadius8}" Opacity="0.66000001" Data="m 147 84.889999 a 31.5 15 0 0 1 -31.5 15 31.5 15 0 0 1 -31.5 -15 31.5 15 0 0 1 31.5 -15 31.5 15 0 0 1 31.5 15 z">
+                        <Canvas Name="Highlights">
+                            <Path Name="CentreStemShadow" Fill="#FF241F1C" StrokeThickness="0.93065888" Effect="{StaticResource BlurRadius8}" Opacity="0.66000001" Data="m 147 84.889999 a 31.5 15 0 0 1 -31.5 15 31.5 15 0 0 1 -31.5 -15 31.5 15 0 0 1 31.5 -15 31.5 15 0 0 1 31.5 15 z">
                                 <Path.RenderTransform>
                                     <MatrixTransform Matrix="0.92315176 -0.0910684 0.0910684 0.92315176 182.58517 415.46205"/>
                                 </Path.RenderTransform>
                             </Path>
-                            <Path Name="path4019" Fill="{StaticResource LinearGradient4807}" StrokeThickness="2" Effect="{StaticResource BlurRadius11}" Data="m 185.79403 137.25357 a 40.642445 17.41819 0 0 1 -40.64245 17.41819 40.642445 17.41819 0 0 1 -40.64244 -17.41819 40.642445 17.41819 0 0 1 40.64244 -17.41819 40.642445 17.41819 0 0 1 40.64245 17.41819 z">
+                            <Path Name="WhiteShinyHighlight" Fill="{StaticResource LinearGradient4807}" StrokeThickness="2" Effect="{StaticResource BlurRadius11}" Data="m 185.79403 137.25357 a 40.642445 17.41819 0 0 1 -40.64245 17.41819 40.642445 17.41819 0 0 1 -40.64244 -17.41819 40.642445 17.41819 0 0 1 40.64244 -17.41819 40.642445 17.41819 0 0 1 40.64245 17.41819 z">
                                 <Path.RenderTransform>
                                     <MatrixTransform Matrix="0.57356303 -0.18528657 0.28927828 1.0602598 210.4033 410.68368"/>
                                 </Path.RenderTransform>
                             </Path>
-                            <Path Name="path4045" Fill="{StaticResource LinearGradient4809}" StrokeThickness="2" Effect="{StaticResource BlurRadius8}" Opacity="0.66000001" Data="m 387.47447 589.22841 c -21.43401 18.80875 -52.42173 30.59833 -86.87796 30.59833 -33.28589 0 -63.32753 -11.02273 -84.65329 -28.72826 17.25038 25.2012 48.89629 42.0896 85.11556 42.0896 37.11106 0 69.47458 -17.72383 86.41569 -43.95967 z">
+                            <Path Name="BottomShadow" Fill="{StaticResource LinearGradient4809}" StrokeThickness="2" Effect="{StaticResource BlurRadius8}" Opacity="0.66000001" Data="m 387.47447 589.22841 c -21.43401 18.80875 -52.42173 30.59833 -86.87796 30.59833 -33.28589 0 -63.32753 -11.02273 -84.65329 -28.72826 17.25038 25.2012 48.89629 42.0896 85.11556 42.0896 37.11106 0 69.47458 -17.72383 86.41569 -43.95967 z">
                                 <Path.RenderTransform>
                                     <MatrixTransform Matrix="0.95918432 -0.1235732 0.10767068 0.99308836 -43.067552 44.699961"/>
                                 </Path.RenderTransform>
                             </Path>
                         </Canvas>
                     </Canvas>
-                    <Canvas Name="g4732">
-                        <Path Name="path4679" Fill="#FF112B00" StrokeThickness="7.08661413" Stroke="#FF112B00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource BlurRadius0}" Data="m 692.49357 -91.659366 -30.625 8.437496 -17.125 25.21875 -1.28125 2.625 -26.90625 55.03125017 -4.875 -25.21875017 -0.0625 0 0 -0.0625 -0.34375 0 0 0.0625 -20.4375 0 -9.78125 12 -0.0625 1.96875 -1.21875 1.53125 -1.09375 41.46875 -98.0625 -58.1875 -50.21875 -1.1875 -40.40625 12 -0.65625 3.25 -0.59375 0.1875 -7.375 36.75 14.71875 -31.8437498 35.5 -7.3437502 62.46875 26.9375 51.375 55.78125 -75.8125 -16.4375 -19.59375 7.21875 -75.9375 43.21875 -15.9375 33.65625 -7.34375 30.03125 0.71875 -1.28125 -1.96875 8.25 24.46875 -44.09375 40.4375 -24.46875 58.78125 -22.0625 53.875 7.34375 53.90625 19.59375 41.625 -1.21875 41.65625 29.40625 23.25 20.8125 18.375 33.0625 10.6875 21.34375 -3.3125 14.5625 0.875 -1.375 -2.125 9.5625 12.25 -19.59375 -1.3125 -3.78125 2.5625 -4.03125 -11 -31.21875 -9.8125 -32.4375 0 -0.0312 -0.1875 -0.1875 -31.65625 -39.4375 -14.8125 -15.5 67.4375 -24 71.03125 -15.9375 39.1875 11.03125 19.59375 24.5 0 22.03125 9.8125 -17.15625 -0.875 -1.71875 2.125 -3.65625 -17.125 -32.4375 -37.96875 -24.03125 -37.96875 -7.21875 -34.28125 2.40625 -35.53125 16.8125 -50.21875 1.21875 0.0625 -0.4375 0.0937 0 9.6875 -64.5 11.96875 -36.46875 10 -17.75 23.25 4.90625 -3.53125 -3.28125 4.8125 1 -17.15625 -15.624996 z"/>
-                        <Canvas Name="g4524">
+                    <Canvas Name="TomatoStem">
+                        <Path Name="StemOutline" Fill="#FF112B00" StrokeThickness="7.08661413" Stroke="#FF112B00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource BlurRadius0}" Data="m 692.49357 -91.659366 -30.625 8.437496 -17.125 25.21875 -1.28125 2.625 -26.90625 55.03125017 -4.875 -25.21875017 -0.0625 0 0 -0.0625 -0.34375 0 0 0.0625 -20.4375 0 -9.78125 12 -0.0625 1.96875 -1.21875 1.53125 -1.09375 41.46875 -98.0625 -58.1875 -50.21875 -1.1875 -40.40625 12 -0.65625 3.25 -0.59375 0.1875 -7.375 36.75 14.71875 -31.8437498 35.5 -7.3437502 62.46875 26.9375 51.375 55.78125 -75.8125 -16.4375 -19.59375 7.21875 -75.9375 43.21875 -15.9375 33.65625 -7.34375 30.03125 0.71875 -1.28125 -1.96875 8.25 24.46875 -44.09375 40.4375 -24.46875 58.78125 -22.0625 53.875 7.34375 53.90625 19.59375 41.625 -1.21875 41.65625 29.40625 23.25 20.8125 18.375 33.0625 10.6875 21.34375 -3.3125 14.5625 0.875 -1.375 -2.125 9.5625 12.25 -19.59375 -1.3125 -3.78125 2.5625 -4.03125 -11 -31.21875 -9.8125 -32.4375 0 -0.0312 -0.1875 -0.1875 -31.65625 -39.4375 -14.8125 -15.5 67.4375 -24 71.03125 -15.9375 39.1875 11.03125 19.59375 24.5 0 22.03125 9.8125 -17.15625 -0.875 -1.71875 2.125 -3.65625 -17.125 -32.4375 -37.96875 -24.03125 -37.96875 -7.21875 -34.28125 2.40625 -35.53125 16.8125 -50.21875 1.21875 0.0625 -0.4375 0.0937 0 9.6875 -64.5 11.96875 -36.46875 10 -17.75 23.25 4.90625 -3.53125 -3.28125 4.8125 1 -17.15625 -15.624996 z"/>
+                        <Canvas Name="StemBody">
                             <Canvas.RenderTransform>
                                 <MatrixTransform Matrix="3.4859696 0 0 3.4859696 -421.54621 -1604.0954"/>
                             </Canvas.RenderTransform>
-                            <Path Name="path4994" Fill="{StaticResource DarkColourBrush}" Effect="{StaticResource BlurRadius3}" Data="m 294.62528 483.155 -27.75473 0.35132 -21.43079 5.97254 -11.59388 5.97254 -8.08052 12.64788 15.45785 -10.89089 18.97181 -7.37783 23.18777 -1.75658 h 9.48581 l 8.43181 14.05286 9.83711 14.75585 11.24189 12.29588 -9.83711 -14.75585 -5.26985 -31.61969 15.10686 -1.05399 20.0258 4.56725 8.78311 5.62115 8.43182 7.37783 -7.72913 -10.5399 -8.08052 -5.26985 -25.64674 -6.67513 z"/>
+                            <Path Name="StemShadow" Fill="{StaticResource DarkColourBrush}" Effect="{StaticResource BlurRadius3}" Data="m 294.62528 483.155 -27.75473 0.35132 -21.43079 5.97254 -11.59388 5.97254 -8.08052 12.64788 15.45785 -10.89089 18.97181 -7.37783 23.18777 -1.75658 h 9.48581 l 8.43181 14.05286 9.83711 14.75585 11.24189 12.29588 -9.83711 -14.75585 -5.26985 -31.61969 15.10686 -1.05399 20.0258 4.56725 8.78311 5.62115 8.43182 7.37783 -7.72913 -10.5399 -8.08052 -5.26985 -25.64674 -6.67513 z"/>
                             <Path Name="path4117" Fill="#FF225500" Effect="{StaticResource BlurRadius0}" Data="m 286.89536 470.04514 -28.45772 -17.21483 -14.40386 -0.35132 -11.59389 3.51326 -2.10798 10.5399 4.21586 -9.13441 10.1889 -2.10798 17.91782 7.72912 16.51184 17.91783 -23.88976 -5.26985 -5.62115 2.10798 -21.78178 12.64787 -4.56726 9.83711 -2.10798 8.78311 7.02653 -12.64788 11.59389 -7.02653 16.86383 -6.32383 15.45785 2.10798 15.45785 5.62114 11.94488 -0.35132 11.94488 8.43182 6.67514 5.97254 5.26984 9.48581 3.16197 6.32383 -1.40528 6.32384 3.51326 -5.62114 -3.16197 -9.13441 -2.81057 -9.48581 -9.13441 -11.59388 -5.26985 -5.62115 20.7278 -7.37783 20.3768 -4.56725 11.24289 3.16197 5.62114 7.02653 v 6.32384 l 2.81057 -4.91855 -4.91855 -9.48581 -10.89089 -7.02653 -10.89089 -2.10798 -9.83711 0.70264 -10.18889 4.91855 -14.40386 0.35133 2.81057 -18.97181 3.51327 -10.8909 3.16196 -5.62114 6.67514 1.40529 -4.91855 -4.56726 -8.78312 2.45928 -4.91855 7.37782 -8.08052 16.86384 -1.40528 -7.37783 h -5.97255 l -2.81057 3.51327 z"/>
-                            <Path Name="path4992" Fill="#FF668000" Effect="{StaticResource BlurRadius0}" Data="m 286.89536 468.04514 -28.45772 -17.21483 -14.40386 -0.35132 -11.59389 3.51326 -2.10798 10.5399 4.21586 -9.13441 10.1889 -2.10798 17.91782 7.72912 16.51184 17.91783 -23.88976 -5.26985 -5.62115 2.10798 -21.78178 12.64787 -4.56726 9.83711 -2.10798 8.78311 7.02653 -12.64788 11.59389 -7.02653 16.86383 -6.32383 15.45785 2.10798 15.45785 5.62114 11.94488 -0.35132 11.94488 8.43182 6.67514 5.97254 5.26984 9.48581 3.16197 6.32383 -1.40528 6.32384 3.51326 -5.62114 -3.16197 -9.13441 -2.81057 -9.48581 -9.13441 -11.59388 -5.26985 -5.62115 20.7278 -7.37783 20.3768 -4.56725 11.24289 3.16197 5.62114 7.02653 v 6.32384 l 2.81057 -4.91855 -4.91855 -9.48581 -10.89089 -7.02653 -10.89089 -2.10798 -9.83711 0.70264 -10.18889 4.91855 -14.40386 0.35133 2.81057 -18.97181 3.51327 -10.8909 3.16196 -5.62114 6.67514 1.40529 -4.91855 -4.56726 -8.78312 2.45928 -4.91855 7.37782 -8.08052 16.86384 -1.40528 -7.37783 h -5.97255 l -2.81057 3.51327 z">
+                            <Path Name="StemMidColour" Fill="#FF668000" Effect="{StaticResource BlurRadius0}" Data="m 286.89536 468.04514 -28.45772 -17.21483 -14.40386 -0.35132 -11.59389 3.51326 -2.10798 10.5399 4.21586 -9.13441 10.1889 -2.10798 17.91782 7.72912 16.51184 17.91783 -23.88976 -5.26985 -5.62115 2.10798 -21.78178 12.64787 -4.56726 9.83711 -2.10798 8.78311 7.02653 -12.64788 11.59389 -7.02653 16.86383 -6.32383 15.45785 2.10798 15.45785 5.62114 11.94488 -0.35132 11.94488 8.43182 6.67514 5.97254 5.26984 9.48581 3.16197 6.32383 -1.40528 6.32384 3.51326 -5.62114 -3.16197 -9.13441 -2.81057 -9.48581 -9.13441 -11.59388 -5.26985 -5.62115 20.7278 -7.37783 20.3768 -4.56725 11.24289 3.16197 5.62114 7.02653 v 6.32384 l 2.81057 -4.91855 -4.91855 -9.48581 -10.89089 -7.02653 -10.89089 -2.10798 -9.83711 0.70264 -10.18889 4.91855 -14.40386 0.35133 2.81057 -18.97181 3.51327 -10.8909 3.16196 -5.62114 6.67514 1.40529 -4.91855 -4.56726 -8.78312 2.45928 -4.91855 7.37782 -8.08052 16.86384 -1.40528 -7.37783 h -5.97255 l -2.81057 3.51327 z">
                                 <Path.RenderTransform>
                                     <MatrixTransform Matrix="1 0 0 0.98086819 0.36287893 9.697161"/>
                                 </Path.RenderTransform>
@@ -197,7 +156,7 @@
                             </Path>
                             <Path Name="path4268" Fill="{StaticResource LinearGradient4819}" StrokeThickness="2" Effect="{StaticResource BlurRadius1}" Opacity="0.43999999" Data="m 361.66027 475.40557 c 0.86572 -1.33621 -1.52453 -2.94332 -2.83977 -3.84057 -2.36283 -1.61191 -5.52399 -2.97902 -8.28523 -2.23287 -0.74375 0.20098 -1.75872 0.88485 -1.625 1.64358 0.41185 2.33681 4.18822 2.27957 6.43384 3.04606 2.03977 0.69623 5.14421 3.19266 6.31616 1.3838 z"/>
                             <Path Name="path4270" Fill="{StaticResource LinearGradient4821}" StrokeThickness="2" Effect="{StaticResource BlurRadius1}" Opacity="0.43999999" Data="m 322.44426 501.41999 c -1.40096 0 -2.46634 0.89727 -3.07371 2.30528 l 0.49576 0.44619 4.16438 7.3868 2.52837 4.93281 -0.0743 0.27267 c 0.5212 -0.11489 0.99069 -0.35915 1.38813 -0.71885 l -2.15655 -6.12263 -2.23092 -7.38682 -0.89237 -1.09066 c -0.0503 -0.002 -0.0986 -0.0248 -0.14873 -0.0248 z"/>
-                            <Path Name="path4418" Fill="#FFCCFF00" Effect="{StaticResource BlurRadius0}" Opacity="0.66000001" Data="m 130 38.28125 -2.90625 5.09375 -3.5 10.65625 -2.8125 18.625 0.15625 0 2.78125 -18.5 3.5 -10.65625 2.78125 -4.875 0 -0.34375 z m -21.15625 15.53125 1.375 7.125 0.0625 -0.15625 -1.34375 -6.96875 -0.0937 0 z m 53.375 19.875 -20.375 4.46875 -20.71875 7.25 0.125 0.125 20.71875 -7.25 20.375 -4.46875 11.21875 3.09375 -0.0937 -0.125 -11.25 -3.09375 z M 113.5 91.03125 l 0 0.03125 10.90625 7.5625 -0.125 -0.125 L 113.5 91.03125 z m 22.03125 11.25 2.8125 9.3125 3.09375 8.78125 0.0625 0 -3.03125 -8.65625 -2.8125 -9.3125 -0.125 -0.125 z">
+                            <Path Name="path4418" Fill="{Binding ColourSet.Stem}" Effect="{StaticResource BlurRadius0}" Opacity="0.66000001" Data="m 130 38.28125 -2.90625 5.09375 -3.5 10.65625 -2.8125 18.625 0.15625 0 2.78125 -18.5 3.5 -10.65625 2.78125 -4.875 0 -0.34375 z m -21.15625 15.53125 1.375 7.125 0.0625 -0.15625 -1.34375 -6.96875 -0.0937 0 z m 53.375 19.875 -20.375 4.46875 -20.71875 7.25 0.125 0.125 20.71875 -7.25 20.375 -4.46875 11.21875 3.09375 -0.0937 -0.125 -11.25 -3.09375 z M 113.5 91.03125 l 0 0.03125 10.90625 7.5625 -0.125 -0.125 L 113.5 91.03125 z m 22.03125 11.25 2.8125 9.3125 3.09375 8.78125 0.0625 0 -3.03125 -8.65625 -2.8125 -9.3125 -0.125 -0.125 z">
                                 <Path.RenderTransform>
                                     <TranslateTransform X="187.44" Y="398.41999"/>
                                 </Path.RenderTransform>
@@ -209,4 +168,3 @@
         </Canvas>
     </Canvas>
 </ResourceDictionary>
-    
