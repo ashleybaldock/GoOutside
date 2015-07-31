@@ -26,27 +26,12 @@ namespace GoOutsideTests.ViewModels
         }
 
         [Test]
-        public void CanGetHeight()
+        public void CheckInitialValues()
         {
             Assert.That(_PomoViewModel.Height, Is.EqualTo(200));
-        }
-
-        [Test]
-        public void CanGetWidth()
-        {
             Assert.That(_PomoViewModel.Width, Is.EqualTo(200));
-        }
-
-        [Test]
-        public void CanGetVisibility()
-        {
             Assert.That(_PomoViewModel.Visible, Is.True);
-        }
-
-        [Test]
-        public void CanGetTimerText()
-        {
-            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("25:00"));
+            Assert.That(_PomoViewModel.TimerText, Is.EqualTo("Start"));
         }
 
         [TestCase(false)]
@@ -192,21 +177,18 @@ namespace GoOutsideTests.ViewModels
             Assert.That(_PomoViewModel.ColourSet, Is.EqualTo(TomatoColours.Disabled));
         }
 
-        [TestCaseSource(typeof(TestCaseFactory), "ColourChangeTestCases")]
+        [TestCaseSource("_ColourChangeTestCases")]
         public void OnPomoTimerChangeState_ColoursSetCorrectly(
             PomoTimerState state,
-            Color lightColour, Color darkColour, Color backgroundColour)
+            TomatoColours.TomatoColourSet initialColourSet,
+            TomatoColours.TomatoColourSet expectedColourSet)
         {
-            _PomoViewModel.LightColour = Colors.Black;
-            _PomoViewModel.DarkColour = Colors.Black;
-            _PomoViewModel.BackgroundColour = Colors.Black;
+            _PomoViewModel.ColourSet = TomatoColours.Disabled;
             var pomoTimerStateChangeEventArgs = new PomoTimerStateChangeEventArgs(state);
 
             _MockPomoTimer.Raise(m => m.StateChanged += null, null, pomoTimerStateChangeEventArgs);
 
-            Assert.That(_PomoViewModel.LightColour, Is.EqualTo(lightColour));
-            Assert.That(_PomoViewModel.DarkColour, Is.EqualTo(darkColour));
-            Assert.That(_PomoViewModel.BackgroundColour, Is.EqualTo(backgroundColour));
+            Assert.That(_PomoViewModel.ColourSet, Is.EqualTo(expectedColourSet));
         }
 
         [TestCaseSource(typeof(TestCaseFactory), "PropertyChangeTestCases")]
@@ -240,6 +222,16 @@ namespace GoOutsideTests.ViewModels
                 Times.Never);
         }
 
+        private static readonly object[] _ColourChangeTestCases =
+        {
+            new object[] { PomoTimerState.Disabled, TomatoColours.Work, TomatoColours.Disabled },
+            new object[] { PomoTimerState.Disabled, TomatoColours.Rest, TomatoColours.Disabled },
+            new object[] { PomoTimerState.Work, TomatoColours.Rest, TomatoColours.Work },
+            new object[] { PomoTimerState.Work, TomatoColours.Disabled, TomatoColours.Work },
+            new object[] { PomoTimerState.Rest, TomatoColours.Work, TomatoColours.Rest },
+            new object[] { PomoTimerState.Rest, TomatoColours.Disabled, TomatoColours.Rest },
+        };
+
         public class TestCaseFactory
         {
             public static IEnumerable<PropertyChangeTestCase> PropertyChangeTestCases
@@ -272,34 +264,6 @@ namespace GoOutsideTests.ViewModels
                 public Action<PomoViewModel> SetupAction { get; set; }
                 public Action<PomoViewModel> ChangeAction { get; set; }
                 public string PropertyName { get; set; }
-            }
-
-            public static IEnumerable ColourChangeTestCases
-            {
-                get
-                {
-                    yield return new object[]
-                    {
-                        PomoTimerState.Disabled,
-                        Color.FromArgb(255, 212, 212, 212),
-                        Color.FromArgb(255, 128, 128, 128),
-                        Color.FromArgb(255, 85, 85, 85)
-                    };
-                    yield return new object[]
-                    {
-                        PomoTimerState.Work,
-                        Color.FromArgb(255, 212, 0, 0),
-                        Color.FromArgb(255, 128, 0, 0),
-                        Color.FromArgb(255, 85, 0, 0)
-                    };
-                    yield return new object[]
-                    {
-                        PomoTimerState.Rest,
-                        Color.FromArgb(255, 0, 212, 0),
-                        Color.FromArgb(255, 0, 128, 0),
-                        Color.FromArgb(255, 0, 85, 0)
-                    };
-                }
             }
         }
     }

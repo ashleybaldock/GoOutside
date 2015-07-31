@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using System.Windows.Media;
 
 namespace GoOutside.ViewModels
 {
@@ -16,9 +15,6 @@ namespace GoOutside.ViewModels
         ICommand Show { get; }
         ICommand Hide { get; }
 
-        Color LightColour { get; set; }
-        Color DarkColour { get; set; }
-        Color BackgroundColour { get; set; }
-        Color StemColour { get; set; }
+        TomatoColours.TomatoColourSet ColourSet { get; set; }
     }
 }

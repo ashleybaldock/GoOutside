@@ -10,33 +10,56 @@ namespace GoOutside.ViewModels
     public static class TomatoColours
     {
         public static readonly TomatoColourSet Work = new TomatoColourSet
-            {
-                Background = Color.FromArgb(255, 85, 0, 0),
-                Dark = Color.FromArgb(255, 128, 0, 0),
-                Light = Color.FromArgb(255, 212, 0, 0),
-                Stem = Color.FromArgb(255, 204, 255, 0)
-            };
+        {
+            Background = Color.FromArgb(255, 85, 0, 0),
+            Dark = Color.FromArgb(255, 128, 0, 0),
+            Light = Color.FromArgb(255, 212, 0, 0),
+            StemHighlight = Color.FromArgb(255, 204, 255, 0),
+            StemOutline = Color.FromArgb(255, 17, 43, 0),
+            StemDark = Color.FromArgb(255, 34, 85, 0),
+            StemMid = Color.FromArgb(255, 68, 85, 0),
+            StemLight = Color.FromArgb(255, 102, 128, 0)
+        };
+
         public static readonly TomatoColourSet Rest = new TomatoColourSet
         {
             Background = Color.FromArgb(255, 0, 85, 0),
             Dark = Color.FromArgb(255, 0, 128, 0),
             Light = Color.FromArgb(255, 0, 212, 0),
-            Stem = Color.FromArgb(255, 204, 255, 0)
+            StemHighlight = Color.FromArgb(255, 204, 255, 0),
+            StemOutline = Color.FromArgb(255, 17, 43, 0),
+            StemDark = Color.FromArgb(255, 34, 85, 0),
+            StemMid = Color.FromArgb(255, 68, 85, 0),
+            StemLight = Color.FromArgb(255, 102, 128, 0)
         };
+
         public static readonly TomatoColourSet Disabled = new TomatoColourSet
-            {
-                Background = Color.FromArgb(255, 85, 85, 85),
-                Dark = Color.FromArgb(255, 128, 128, 128),
-                Light = Color.FromArgb(255, 212, 212, 212),
-                Stem = Color.FromArgb(255, 216, 216, 216)
-            };
+        {
+            Background = Color.FromArgb(255, 85, 85, 85),
+            Dark = Color.FromArgb(255, 128, 128, 128),
+            Light = Color.FromArgb(255, 212, 212, 212),
+            StemHighlight = Color.FromArgb(255, 255, 255, 255),
+            StemOutline = Color.FromArgb(255, 43, 43, 43),
+            StemDark = Color.FromArgb(255, 85, 85, 85),
+            StemMid = Color.FromArgb(255, 85, 85, 85),
+            StemLight = Color.FromArgb(255, 128, 128, 128)
+        };
 
         public class TomatoColourSet
         {
             public Color Light { get; set; }
             public Color Dark { get; set; }
             public Color Background { get; set; }
-            public Color Stem { get; set; }
+            public Color StemHighlight { get; set; }
+            public Color StemOutline { get; set; }
+            public Color StemDark { get; set; }
+            public Color StemMid { get; set; }
+            public Color StemLight { get; set; }
+
+            // Stem outline #FF112B00
+            // Stem dark #FF225500
+            // Stem mid #FF445500
+            // Stem light #FF668000
         }
     }
 
@@ -50,27 +73,7 @@ namespace GoOutside.ViewModels
 
         private bool _Visible;
         private string _TimerText;
-        private Color _LightColour;
-        private Color _DarkColour;
-        private Color _BackgroundColour;
-        private Color _StemColour;
-
         private bool _ShowTimer = true;
-
-        private readonly Color _LightWork = Color.FromArgb(255, 212, 0, 0);
-        private readonly Color _DarkWork = Color.FromArgb(255, 128, 0, 0);
-        private readonly Color _BackgroundWork = Color.FromArgb(255, 85, 0, 0);
-        private readonly Color _StemWork = Color.FromArgb(255, 204, 255, 0);
-
-        private readonly Color _LightRest = Color.FromArgb(255, 0, 212, 0);
-        private readonly Color _DarkRest = Color.FromArgb(255, 0, 128, 0);
-        private readonly Color _BackgroundRest = Color.FromArgb(255, 0, 85, 0);
-        private readonly Color _StemRest = Color.FromArgb(255, 204, 255, 0);
-
-        private readonly Color _LightDisabled = Color.FromArgb(255, 212, 212, 212);
-        private readonly Color _DarkDisabled = Color.FromArgb(255, 128, 128, 128);
-        private readonly Color _BackgroundDisabled = Color.FromArgb(255, 85, 85, 85);
-        private readonly Color _StemDisabled = Color.FromArgb(255, 216, 216, 216);
         private TomatoColours.TomatoColourSet _ActiveColourSet;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -85,50 +88,6 @@ namespace GoOutside.ViewModels
             {
                 if (_ActiveColourSet == value) return;
                 _ActiveColourSet = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Color LightColour
-        {
-            get { return _LightColour; }
-            set
-            {
-                if (_LightColour == value) return;
-                _LightColour = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Color DarkColour
-        {
-            get { return _DarkColour; }
-            set
-            {
-                if (_DarkColour == value) return;
-                _DarkColour = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Color BackgroundColour
-        {
-            get { return _BackgroundColour; }
-            set
-            {
-                if (_BackgroundColour == value) return;
-                _BackgroundColour = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Color StemColour
-        {
-            get { return _StemColour; }
-            set
-            {
-                if (_StemColour == value) return;
-                _StemColour = value;
                 OnPropertyChanged();
             }
         }
@@ -161,7 +120,7 @@ namespace GoOutside.ViewModels
             _PomoTimer.Tick += OnTick;
             _PomoTimer.StateChanged += OnStateChanged;
             Visible = true;
-            TimerText = "25:00";
+            TimerText = _Start;
             ColourSet = TomatoColours.Disabled;
         }
 
@@ -272,26 +231,17 @@ namespace GoOutside.ViewModels
 
         private void Work()
         {
-            LightColour = _LightWork;
-            DarkColour = _DarkWork;
-            BackgroundColour = _BackgroundWork;
-            StemColour = _StemWork;
+            ColourSet = TomatoColours.Work;
         }
 
         private void Rest()
         {
-            LightColour = _LightRest;
-            DarkColour = _DarkRest;
-            BackgroundColour = _BackgroundRest;
-            StemColour = _StemRest;
+            ColourSet = TomatoColours.Rest;
         }
 
         private void Disabled()
         {
-            LightColour = _LightDisabled;
-            DarkColour = _DarkDisabled;
-            BackgroundColour = _BackgroundDisabled;
-            StemColour = _StemDisabled;
+            ColourSet = TomatoColours.Disabled;
         }
 
         private void OnPropertyChanged([CallerMemberName] string caller = null)
